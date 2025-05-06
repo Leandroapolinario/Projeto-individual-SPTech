@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
+
+* {
+  font-family: "Gochi Hand";
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+
+.header {
+  background: #F3C6DF;
+}
+
+.header .container .titulo {
+  color: aqua;
+}
+
+.container .navbar {
+  color: yellow;
+
+  list-style-type: none;
+  display: flex;
+  width: 350px;
+
+  justify-content: space-around;
+}
+
+.navbar .agora {
+  font-weight: 900;
+  border-bottom: yellow solid 2px;
+}
+
+.navbar a {
+  color: yellow;
+  text-decoration: none;
+}
+
+.container {
+  /* display: flex; */
+  width: 100%;
+  margin: auto;
+
+}
+
+.header .container {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.links {
+  display: flex;
+  justify-content: space-around;
+  font-size: 30px;
+  padding: 22px 0px;
+}
+
+.links a {
+  text-decoration: none;
+  color: #C90A73;
+}
+
+.links a:hover {
+  color: black;
+}
+
+/* BANNER */
+
+
+.banner {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.bg-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("img/princesas.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: blur(5px);
+  z-index: 0;
+}
+
+.polaroide {
+  display: flex;
+  width: 380px;
+  height: 500px;
+  padding: 15px 20px 15px 20px;
+  background-color: #FFFFFF;
+  flex-direction: column;
+  text-align: center;
+  margin-right: 180px;
+  
+}
+
+#fotoPol {
+  height: 80%;
+}
+
+#texto {
+  font-size: 80px;
+}
+
+#imageCoracao {
+  width: 70px;
+
+}
+
+#balao {
+  position: absolute;
+  height: 50%;
+  bottom: 310px;
+  right: 10%;
+  
+}
+
+.container-banner {
+  position: relative;
+  height: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.container-banner p {
+  position: absolute;
+  font-size: 100px;
+  text-align: left;
+  color: #FFFFFF;
+  text-shadow: 8px 8px 1px rgba(0, 0, 0, 0.5);
+
+  left: 0;
+  margin-left: 200px;
+}
+
+
+/* SOCIAL */
+
+.social {
+  background: white;
+}
+
+.social .container {
+  justify-content: space-evenly;
+}
+
+.box img {
+  width: 100px;
+}
+
+.boxes {
+  width: 100%;
+  padding: 20px 0px;
+
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+
+.box p {
+  text-align: center;
+}
+
+.box h4 {
+  color: rgb(133, 50, 67);
+  font-weight: 900;
+}
+
+/* FOOTER */
+
+.footer {
+  background: darkcyan;
+}
+
+.footer .container {
+  justify-content: center;
+  align-items: center;
+  color: white;
+
+
+  height: 200px
+}
+
+
+.nav {
+  gap: 20px;
+  display: flex;
+  width: 100%;
+}
+
+.postit {
+  z-index: -1;
+  width: 90px;
+}
+
+.nav p {
+  align-items: center;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  margin-top: 50px;
+  margin-left: 20px;
+}
+
+#historia {
+  cursor: pointer;
+}
+
+.links a {
+  text-decoration: none;
+  color: #C90A73;
+  position: relative;
+}
+
+
+.links a::before,
+.links a::after {
+  content: '✨';
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: scale(0.5);
+  font-size: 18px;
+  color: gold;
+}
+
+
+.links a::before {
+  left: -20px;
+}
+
+.links a::after {
+  right: -20px;
+}
+
+
+.links a:hover::before,
+.links a:hover::after {
+  opacity: 1;
+  transform: scale(1.3) rotate(10deg);
+}
