@@ -30,6 +30,21 @@ body {
   justify-content: space-around;
 }
 
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #F3C6DF;
+  z-index: 1;
+  padding: 10px 0;
+}
+
+body {
+  padding-top: 0px; /* empurra o resto da página pra baixo da navbar fixa */
+}
+
+
 .navbar .agora {
   font-weight: 900;
   border-bottom: yellow solid 2px;
@@ -40,16 +55,20 @@ body {
   text-decoration: none;
 }
 
+.container-header{
+  position: fixed;
+  z-index: 0;
+}
+
 .container {
-  /* display: flex; */
   width: 100%;
   margin: auto;
-
-}
+  }
 
 .header .container {
   justify-content: space-between;
   align-items: center;
+  
 }
 
 .links {
@@ -68,7 +87,7 @@ body {
   color: black;
 }
 
-/* BANNER */
+
 
 
 .banner {
@@ -84,7 +103,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("img/princesas.jpg");
+  background-image: url("../assets/img/princesas.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   filter: blur(5px);
@@ -93,13 +112,14 @@ body {
 
 .polaroide {
   display: flex;
-  width: 380px;
-  height: 500px;
+  width: 340px;
+  height: 430px;
   padding: 15px 20px 15px 20px;
   background-color: #FFFFFF;
   flex-direction: column;
   text-align: center;
   margin-right: 180px;
+  margin-top: 100px;
   
 }
 
@@ -121,6 +141,9 @@ body {
   height: 50%;
   bottom: 310px;
   right: 10%;
+  z-index: 2;
+  top: 55px;
+
   
 }
 
@@ -147,7 +170,7 @@ body {
 /* SOCIAL */
 
 .social {
-  background: white;
+  background: #F3C6DF;
 }
 
 .social .container {
@@ -155,7 +178,8 @@ body {
 }
 
 .box img {
-  width: 100px;
+  width: 280px;
+  height: 450px;
 }
 
 .boxes {
@@ -163,19 +187,17 @@ body {
   padding: 20px 0px;
 
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .box {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
   align-items: center;
 }
 
-.box p {
-  text-align: center;
-}
 
 .box h4 {
   color: rgb(133, 50, 67);
