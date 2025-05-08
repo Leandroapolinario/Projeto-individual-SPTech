@@ -16,20 +16,6 @@ body {
   background: #F3C6DF;
 }
 
-.header .container .titulo {
-  color: aqua;
-}
-
-.container .navbar {
-  color: yellow;
-
-  list-style-type: none;
-  display: flex;
-  width: 350px;
-
-  justify-content: space-around;
-}
-
 .navbar {
   position: fixed;
   top: 0;
@@ -202,25 +188,48 @@ body {
 
 /* FOOTER */
 
-.fatos {
+.fatos-imagem {
   background: #F3C6DF;
-  width: 100%;
+  width: 25%;
 }
 
-.fatos .imagem {
+.imagem{
+  width: 50%;
+}
+
+.fatos-imagem .imagem {
   display: flex;
-  flex-direction: row; /* garante imagem à esquerda, texto à direita */
+  flex-direction: row;
   align-items: flex-start;
-  gap: 20px; /* espaço entre imagem e texto */
-  width: 100%;
-  max-width: 1000px;
-  margin: auto;
+  gap: 20px;
+  width: auto;
+  margin-left: 0;
+  position: relative; /* Necessário para o efeito da imagem */
 }
 
-.fatos .imagem img {
-  width: 350px;
-  height: 450px;
+.fatos-imagem .imagem img {
+  max-width: 350px;
+  max-height: 450px;
   object-fit: cover;
+  transition: transform 0.5s ease, opacity 0.5s ease; /* Suaviza o efeito */
+}
+
+.fatos-imagem .imagem img:nth-child(2) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0; /* Inicialmente invisível */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Efeito de transição suave */
+}
+
+.fatos-imagem .imagem:hover img:first-child {
+  transform: rotate(360deg); /* Gira a imagem original */
+  opacity: 0; /* Torna a imagem original invisível */
+}
+
+.fatos-imagem .imagem:hover img:nth-child(2) {
+  opacity: 1; /* Torna a nova imagem visível */
+  transform: rotate(360deg); /* Gira a nova imagem */
 }
 
 .fatos .container {
@@ -235,14 +244,78 @@ body {
   font-weight: 900;
 }
 
-#texto-fato1 {
+
+.fato-texto{
   flex: 1; /* ocupa o restante do espaço disponível */
-  text-align: left;
-  font-size: 20px;
+  text-align: right;
+  font-size: 15px;
   line-height: 1.5;
-  color: white;
+  color: #C90A73;
+  text-align: center;
+  background: #F3C6DF;
+  display: flex;
+  gap: 50px;
+  
+
 }
 
+#texto-fato1 {
+  flex: 1; /* ocupa o restante do espaço disponível */
+  margin-bottom: 50px;
+  width: 400px;
+}
+
+#texto-fato2 {
+  flex: 1; /* ocupa o restante do espaço disponível */
+  margin-bottom: 50px;
+  width: 400px;
+}
+
+.destaque {
+  transition: all 0.3s ease;
+}
+
+.destaque:hover {
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: underline;
+  font-size: 25px; /* Aumenta o tamanho da palavra */
+}
+
+.emoji {
+  transition: all 0.3s ease;
+}
+
+.destaque:hover + .emoji {
+  font-size: 25px; /* Aumenta o tamanho do emoji quando passar o mouse sobre "odeia" */
+}
+
+#texto-fato3 {
+  flex: 1; /* ocupa o restante do espaço disponível */
+  margin-bottom: 50px;
+  width: 400px;
+}
+
+.destaque2 {
+  transition: all 0.3s ease;
+}
+
+.destaque2:hover {
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: underline;
+  }
+
+.fatos{
+  display: flex;
+  ;
+}
+
+#texto-fato4 {
+  flex: 1; /* ocupa o restante do espaço disponível */
+  margin-bottom: 50px;
+  width: 400px;
+}
 
 .nav {
   gap: 20px;
