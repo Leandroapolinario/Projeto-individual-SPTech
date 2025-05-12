@@ -4,65 +4,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles/styles-lc.css">
-    <link rel="stylesheet" href="assets/post-no-bills-jaffna-cufonfonts-webfont/style.css">
+    <title>Tela de Cadastro</title>
+    <link rel="stylesheet" href="styles/tela.css">
+
 </head>
 
 <body>
     <div class="navbar">
-        <img src="assets/img/voltar.svg" alt="">
-        <button class="botao_voltar" onclick="voltar()">Voltar
+        <button class="botao_voltar">
+            <a href="index.html">Voltar</a>
+        </button>
+
+
     </div>
     </div>
     <div class="container">
         <div class="card"></div>
         <div class="titulo">
+            <br><br>
             CADASTRO
-        </div>
+        </div><br>
         <div class="campos">
             <div class="txt_campo">
-                nome empresa
+                Escolha um nome para o cadastro
             </div>
-            <input type="text" id="input_nome_empresa">
+            <input type="text" id="input_nome">
             <div id="erro_empresa"></div>
         </div>
         <div class="campos">
             <div class="txt_campo">
-                CNPJ
+                Escolha uma senha para o cadastro
             </div>
-            <input type="text" id="input_cnpj">
-            <div id="erro_cnpj"></div>
+            <input type="password" id="input_senha">
+            <div id="erro_senha"></div>
         </div>
         <div class="campos">
             <div class="txt_campo">
-                telefone
+                Escreva de novo a senha escolhida
             </div>
-            <input type="number" id="input_telefone">
-            <div id="erro_telefone"></div>
-        </div>
-        <div class="campos">
-            <div class="txt_campo">
-                email
-            </div>
-            <input type="text" id="input_email">
-            <div id="erro_email"></div>
-        </div>
-        <div class="campos">
-            <div class="txt_campo">
-                senha
-            </div>
-            <input type="text" id="input_senha">
+            <input type="password" id="input_senhaConfirmacao">
             <div id="erro_senha"></div>
         </div>
         <div id="div_condicao_cadastrar"></div>
         <div class="botoes">
             <button class="botao_apagar" onclick="apagar()">
-                <img src="assets/img/lixeira.svg" alt="">
+                <img height="80px" src="assets/img/lixeira.png" alt="">
             </button>
-            <button class="botao_entrar" onclick="cadastrar()">
-                cadastrar
-            </button>
+            <a class="botao_entrar" href="#" onclick="cadastrar()">Cadastrar</a>
+
         </div>
         <div class="possui_conta11">
             <div>Já possui uma conta?</div> <a href="">click aqui</a>
@@ -74,73 +63,47 @@
 </html>
 <script>
     function apagar() {
-        input_cnpj.value = ``
-        input_telefone.value = ``
-        input_email.value = ``
-        input_senha.value = ``
+        input_senha.value = "";
+        input_senhaConfirmacao.value = "";
+        input_nome.value = "";
     }
+
 </script>
 <script>
+
+    function voltar() {
+
+        window.location.assign("index.html")
+    }
+
+
+
     function cadastrar() {
-        // Limpar divs
-        erro_email.innerHTML = ``
-        erro_senha.innerHTML = ``
-        erro_telefone.innerHTML = ``
-        erro_cnpj.innerHTML = ``
+        var maiuscula = /[A-Z]/;
+        var minuscula = /[a-z]/;
+        var simbolo = /[!@#$]/;
+        var numero = /[0-9]/;
 
-        // Receber valores das inputs
-        var cnpj = input_cnpj.value
-        var telefone = input_telefone.value
-        var email = input_email.value
-        var senha = input_senha.value
+        var nomeVar = input_nome_empresa.value;
+        var senhaVar = input_senha.value;
+        var confirmarSenhaVar = input_senhaConfirmacao.value;
 
-        // Validações de Quantidade de Letras
-        var cnpj_qtd_letras = cnpj.length
-        var telefone_qtd_letras = telefone.length
+        var temMaiuscula = maiuscula.test(senhaVar);
+        var temMinuscula = minuscula.test(senhaVar);
+        var temSimbolo = simbolo.test(senhaVar);
+        var temNumerico = numero.test(senhaVar);
+        var temTamanho = senhaVar.length >= 8;
 
-        // Validações Senha
-        var senha_qtd_letras = senha.length
-        var senha_validacao_a = senha.indexOf("@")
-        var senha_validacao_b = senha.indexOf("#")
-        var senha_validacao_c = senha.indexOf("!")
-        var senha_validacao_d = senha.indexOf("$")
-        var senha_validacao_e = senha.indexOf("%")
-        var senha_validacao_f = senha.indexOf("&")
-        var senha_validacao_g = senha.indexOf("*")
+        var senhaForte = temMaiuscula && temMinuscula && temSimbolo && temNumerico && temTamanho;
 
-        // Validação email
-        var email_validacao = email.endsWith(".com")
-        var email_validacao_a = email.indexOf("@")
-
-        if (cnpj == `` || telefone == `` || email == `` || senha == ``) {
-            div_condicao_cadastrar.innerHTML = `<div class="errado">Preencha todos os campos para efetivar o cadastro</div>`
+        if (nomeVar == "" || senhaVar == "" || confirmarSenhaVar == "") {
+            alert("Preencha todos os campos!");
+        } else if (!senhaForte) {
+            alert("Senha fraca! Deve conter 8 caracteres, maiúscula, minúscula, número e símbolo.");
+        } else if (senhaVar !== confirmarSenhaVar) {
+            alert("As senhas não coincidem.");
         } else {
-            if (cnpj_qtd_letras > 14 || cnpj_qtd_letras < 11) {
-                erro_cnpj.innerHTML = `CNPJ não é válido`
-                div_condicao_cadastrar.innerHTML = ``
-            } else if (telefone_qtd_letras < 10 || telefone_qtd_letras > 11) {
-                erro_telefone.innerHTML = `Telefone não é válido`
-                div_condicao_cadastrar.innerHTML = ``
-            } else if (!email.endsWith(".com") || email.indexOf("@") === -1) {
-                erro_email.innerHTML = `Email não é válido`
-                div_condicao_cadastrar.innerHTML = ``
-            } else if (senha_qtd_letras < 8 ||
-                (senha_validacao_a == -1 &&
-                    senha_validacao_b == -1 &&
-                    senha_validacao_c == -1 &&
-                    senha_validacao_d == -1 &&
-                    senha_validacao_e == -1 &&
-                    senha_validacao_f == -1 &&
-                    senha_validacao_g == -1)) {
-                erro_senha.innerHTML = `Senha fraca`
-                div_condicao_cadastrar.innerHTML = ``
-            } else {
-                div_condicao_cadastrar.innerHTML = `<div class="certo">Usuário cadastrado</div>`
-                erro_email.innerHTML = ``
-                erro_senha.innerHTML = ``
-                erro_telefone.innerHTML = ``
-                erro_cnpj.innerHTML = ``
-            }
+            alert("Usuário cadastrado com sucesso!");
         }
     }
 </script>
