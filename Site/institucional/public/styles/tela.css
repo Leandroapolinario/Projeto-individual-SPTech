@@ -34,6 +34,7 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: -40px;
 }
 
 .campos {
@@ -50,12 +51,12 @@ header {
   box-sizing: border-box;
 }
 
-.botoes {
-  display: flex;
-  align-items: center; /* Alinha verticalmente */
-  gap: 30px; /* Espaço entre os botões */
-}
 
+.formulario {
+  display: flex;
+  flex-direction: column; /* agora empilha os elementos */
+  align-items: flex-start; /* alinha à esquerda */
+}
 
 .botao_apagar img {
   height: 80px; /* Ajuste da altura da imagem do botão */
@@ -112,38 +113,81 @@ header {
 }
 
 .botao_entrar {
-  background: none;
-  border: none;
-  color: #C90A73;
-  font-size: 30px;
+  background-color: #C90A73; /* rosa */
+  color: black;
+  font-size: 28px;
   font-family: "Gochi Hand", cursive;
+  padding: 12px 30px;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0 4px 15px rgba(201, 10, 115, 0.6); /* sombra rosa */
   cursor: pointer;
   position: relative;
-  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  overflow: hidden;
 }
 
+/* Estrelinhas ocultas inicialmente */
 .botao_entrar::before,
 .botao_entrar::after {
   content: '✨';
-  opacity: 0;
   position: absolute;
-  top: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  transform: scale(0.5);
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 18px;
-  color: gold;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+/* Dentro do botão */
 .botao_entrar::before {
-  left: -20px;
+  left: 10px;
 }
 
 .botao_entrar::after {
-  right: -20px;
+  right: 10px;
+}
+
+/* Ao passar o mouse */
+.botao_entrar:hover {
+  background-color: black;
+  color: #C90A73;
 }
 
 .botao_entrar:hover::before,
 .botao_entrar:hover::after {
   opacity: 1;
-  transform: scale(1.3) rotate(10deg);
+  transform: translateY(-50%) scale(1.2) rotate(10deg);
+  color: gold;
+}
+
+.botao_voltar a:hover {
+  color: black;
+}
+
+
+.login {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.cadastro-box {
+  background-color: rgba(255, 77, 157, 0.15); /* Rosa da letra com opacidade */
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(255, 77, 157, 0.2);
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 350px;
+  text-align: center;
+  color: #FF4D9D; /* Aplica a cor rosa ao texto */
+}
+
+.titulo {
+  color: #C90A73;
+  font-size: 36px;
+  text-align: center;
+  margin-top: 15px;   /* espaço acima do "Cadastro" */
+  margin-bottom: 20px;
 }
