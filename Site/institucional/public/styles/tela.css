@@ -126,6 +126,7 @@ header {
   display: inline-block;
   transition: all 0.3s ease;
   overflow: hidden;
+    margin-top: 20px;
 }
 
 /* Estrelinhas ocultas inicialmente */
@@ -190,4 +191,43 @@ header {
   text-align: center;
   margin-top: 15px;   /* espaço acima do "Cadastro" */
   margin-bottom: 20px;
+}
+
+.link_voltar {
+  font-size: 28px;
+  font-family: "Gochi Hand", cursive;
+  color: #C90A73;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.link_voltar::before,
+.link_voltar::after {
+  content: '✨';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) scale(0.5);
+  font-size: 18px;
+  opacity: 0;
+  color: gold;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.link_voltar::before {
+  left: -25px;
+}
+
+.link_voltar::after {
+  right: -25px;
+}
+
+.link_voltar:hover {
+  color: black;
+}
+
+.link_voltar:hover::before,
+.link_voltar:hover::after {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.2) rotate(10deg);
 }

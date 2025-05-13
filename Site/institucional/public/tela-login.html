@@ -2,71 +2,74 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles/styles-lc.css">
-    <link rel="stylesheet" href="assets/post-no-bills-jaffna-cufonfonts-webfont/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="styles/tela.css">
 </head>
 
 <body>
-    <div class="navbar">
-        <img src="assets/img/voltar.svg" alt="">
-        <button class="botao_voltar" onclick="voltar()">Voltar
+  <div class="navbar">
+<button class="botao_voltar">
+            <a href="index.html">Voltar</a>
+        </button>
+
+  </div>
+
+  <div class="container">
+    <div class="titulo">Login</div>
+
+    <div class="campos">
+      <div class="txt_campo">Email</div>
+      <input type="text" id="input_email">
+      <div id="erro_email"></div>
     </div>
-    <div class="container">
-        <div class="container">
-            <div class="titulo">
-                LOGIN
-            </div>
-            <div class="campos">
-                <div class="txt_campo">
-                    email
-                </div>
-                <input type="text" id="input_email">
-            </div>
-            <div class="campos">
-                <div class="txt_campo">
-                    senha
-                </div>
-                <input type="text" id="input_senha">
-            </div>
-            <div id="div_condicao_cadastrar"></div>
-            <div class="possui_conta">
-                <div>Esqueceu a senha?</div> <a href="">click aqui</a>
-            </div>
-            <div class="botoes">
-                <button class="botao_apagar" onclick="apagar()">
-                    <img src="assets/img/lixeira.svg" alt="">
-                </button>
-                <button class="botao_entrar" onclick="entrar()">
-                    entrar
-                </button>
-            </div>
-        </div>
+
+    <div class="campos">
+      <div class="txt_campo">Senha</div>
+      <input type="password" id="input_senha">
     </div>
+
+    <div id="div_condicao_cadastrar"></div>
+
+    <div class="possui_conta">
+      <div>Esqueceu a senha?</div>
+      <a href="#">Clique aqui</a>
+    </div>
+
+    <div class="botoes">
+      <button class="botao_apagar" onclick="apagar()">
+        <img src="assets/img/lixeira.svg" alt="">
+      </button>
+      <button class="botao_entrar" onclick="entrar()">Entrar</button>
+    </div>
+  </div>
+
+  <script>
+    function apagar() {
+      input_email.value = "";
+      input_senha.value = "";
+      div_condicao_cadastrar.innerHTML = "";
+    }
+
+    function voltar() {
+      window.location.href = "index.html";
+    }
+
+    function entrar() {
+      var email = input_email.value;
+      var senha = input_senha.value;
+
+      if (email === "" || senha === "") {
+        div_condicao_cadastrar.innerHTML = `<div class="errado">Preencha todos os campos para efetivar o login</div>`;
+      } else if (email === "claudiof@gmail.com" && senha === "novoclienteSafe#") {
+        div_condicao_cadastrar.innerHTML = `<div class="certo">Login Autenticado</div>`;
+      } else {
+        div_condicao_cadastrar.innerHTML = `<div class="errado">Email/Senha incorreta</div>`;
+      }
+    }
+  </script>
 </body>
 
 </html>
-<script>
-    function apagar() {
-        input_email.value = ``
-        input_senha.value = ``
-    }
-</script>
-<script>
-    function entrar() {
-        var email = input_email.value
-        var senha = input_senha.value
 
-        if (email == `` || senha == ``) {
-             div_condicao_cadastrar.innerHTML = `<div class="errado">Preencha todos os campos para efetivar o login</div>`
-        }
-        else if (email == `claudiof@gmail.com` && senha == `novoclienteSafe#`) {
-            div_condicao_cadastrar.innerHTML = `<div class="certo">Login Autenticado</div>`
-        }
-        else {
-            div_condicao_cadastrar.innerHTML = `<div class="errado">Email/Senha incorreta</div>`
-        }
-    }
-</script>
