@@ -10,8 +10,7 @@ function cadastrar(req, res) {
         res.status(400).send("Seu nome está undefined!");
     }  else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if (fkEmpresa == undefined) {
-       
+    }  
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel.cadastrar(nome, senha)
             .then(
@@ -28,7 +27,7 @@ function cadastrar(req, res) {
                     res.status(500).json(erro.sqlMessage);
                 }
             );
-    }
+    
 }
 
 module.exports = {
