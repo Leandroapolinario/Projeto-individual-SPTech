@@ -231,3 +231,23 @@ header {
   opacity: 1;
   transform: translateY(-50%) scale(1.2) rotate(10deg);
 }
+
+
+
+
+.div_senha{
+
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  border: solid 1px black;
+}
+
+#input_senha{
+
+  border: none;
+  width: 90%;
+  outline: none;
+}
+

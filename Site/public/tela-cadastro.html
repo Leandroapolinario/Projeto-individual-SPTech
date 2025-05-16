@@ -35,7 +35,12 @@
             <div class="txt_campo">
                 Escolha uma senha para o cadastro
             </div>
-            <input type="password" id="input_senha">
+            <div class="div_senha">
+                <input type="password"  id="input_senha">
+                <img src="assets/img/olho_fechado.svg" id="olhoFechado" class="view" onclick="mostrarSenha()">
+                <img src="assets/img/olho_aberto.svg" id="olho_aberto" class="hide" onclick="mostrarSenha()">
+            </div>
+
             <div id="erro_senha"></div>
         </div>
         <div class="campos">
@@ -49,7 +54,7 @@
         <button class="botao_entrar" onclick="cadastrar()">Cadastrar</button>
     </div>
 
-  
+
     </div>
 
 
@@ -60,16 +65,31 @@
     </div>
 </body>
 
-</html>
+</html> 
 <script>
     function apagar() {
         input_senha.value = "";
         input_senhaConfirmacao.value = "";
         input_nome.value = "";
     }
+    
+    function mostrarSenha(){
+        var input = input_senha.value;
+        var olhoFechado = olhoFechado.value;
+        var olhoAberto = olhoAberto.value;
 
-</script>
-<script>
+        if(input.type == "password"){
+            input.type = "text";
+            olhoFechado.classList.add("hide");
+            olhoAberto.classList.remove("hide");
+        } else{
+            input.type = "password";
+            olhoFechado.classList.remove("hide");
+            olhoFechado.classList.add("hide");
+        }
+    }
+
+
 
     function voltar() {
 
@@ -84,7 +104,7 @@
         var simbolo = /[!@#$]/;
         var numero = /[0-9]/;
 
-        var nomeVar = input_nome_empresa.value;
+        var nomeVar = input_nome.value;
         var senhaVar = input_senha.value;
         var confirmarSenhaVar = input_senhaConfirmacao.value;
 
@@ -105,5 +125,37 @@
         } else {
             alert("Usuário cadastrado com sucesso!");
         }
+
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
+                senhaServer: senhaVar,
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    window.location = "login.html";
+
+                } else {
+
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
     }
+
 </script>•
