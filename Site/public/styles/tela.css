@@ -232,16 +232,15 @@ header {
   transform: translateY(-50%) scale(1.2) rotate(10deg);
 }
 
-
-
-
 .div_senha{
 
-  width: 90%;
+  width: 95%;
   display: flex;
   flex-direction: row;
   background-color: white;
   border: solid 1px black;
+  border-radius: 20px;
+  
 }
 
 #input_senha{
@@ -249,5 +248,22 @@ header {
   border: none;
   width: 90%;
   outline: none;
+  
 }
 
+.hide {
+    display: none;
+    font-weight: bold;
+}
+
+#input_senhaConfirmacao{
+
+  border: none;
+  width: 90%;
+  outline: none;
+}
+
+.campos input{
+  border: none;
+  border-radius: 20px;
+}

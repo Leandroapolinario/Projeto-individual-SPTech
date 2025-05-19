@@ -8,6 +8,11 @@ router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 })
 
+// Rota para Logar
+router.post("/logar", function (req, res) {
+    usuarioController.logar(req, res);
+});
+
 
 
 module.exports = router;
