@@ -1,57 +1,56 @@
-/* Importe aqui as fontes se elas não estiverem já nos seus outros CSS */
-/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); */
-
-:root {
-    /* Defina as variáveis de cor e fonte que você usa na sua página de login aqui
-       ou certifique-se de que elas já estejam definidas em tela.css ou style.css */
-    --cor-fundo-geral: #f0f2f5; /* Exemplo de cor de fundo clara */
-    --cor-secundaria: #ffffff; /* Cor de fundo para containers */
-    --cor-texto-primaria: #333333; /* Cor principal do texto */
-    --cor-borda: #dddddd; /* Cor das bordas */
-    --cor-hover-alternativa: #e6e6e6; /* Cor de hover para alternativas */
-    --cor-botao-primario: #007bff; /* Cor para botões primários (Iniciar Quiz) */
-    --cor-botao-primario-hover: #0056b3;
-    --cor-botao-secundario: #28a745; /* Cor para botões de ação (Submeter, Avançar) */
-    --cor-botao-secundario-hover: #218838;
-    --cor-botao-desabilitado: #cccccc; /* Cor para botões desabilitados */
-    --cor-texto-botao: #ffffff; /* Cor do texto em botões */
-
-    /* Cores para feedback (acerto, erro, aviso) */
-    --cor-sucesso-fundo: #d4edda;
-    --cor-sucesso-texto: #155724;
-    --cor-danger-fundo: #f8d7da;
-    --cor-danger-texto: #721c24;
-    --cor-warning-fundo: #fff3cd;
-    --cor-warning-texto: #856404;
-    --cor-cinza-texto: #6c757d;
-
-    --fonte-primaria: 'Arial', sans-serif; /* Exemplo de fonte */
-}
+/* --- Importações e reset básicos --- */
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
 
 body {
+    padding-top: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: calc(100vh - 60px);
     margin: 0;
-    background-color: var(--cor-fundo-geral);
-    color: var(--cor-texto-primaria);
-    font-family: var(--fonte-primaria);
+    background-color: #F3C6DF;
+    color: #333333;
+    font-family: "Gochi Hand", cursive;
     line-height: 1.6;
 }
 
-.container {
+/* --- Estilos da Navbar (Idênticos ao seu style.css de login) --- */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f3c6df;
+    z-index: 1000;
+    padding: 10px 0;
+    transition: transform 0.3s ease;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+}
+
+/* --- Estilos do Botão Voltar (REMOVIDOS DAQUI para usar o estilo de style.css) --- */
+/* Apenas garanta que o link dentro do botão não tenha sublinhado extra */
+.botao_voltar a {
+    text-decoration: none; /* Remove o sublinhado padrão do link */
+    /* A cor e efeitos de hover virão do style.css ou tela.css */
+}
+
+/* --- Seus estilos de quiz adaptados --- */
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
     gap: 20px;
     padding: 30px;
-    background-color: var(--cor-secundaria);
+    background-color: #FFFFFF; /* Fundo branco para o container do quiz */
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    max-width: 600px; /* Limita a largura do container principal */
-    width: 90%; /* Responsividade */
+    box-sizing: border-box;
 }
 
 .quiz-container {
@@ -64,76 +63,114 @@ body {
 #pontuacao,
 #jogo {
     width: 100%;
-    background-color: var(--cor-secundaria); /* Pode ser a mesma cor do container ou uma leve variação */
+    background-color: #FFFFFF;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
     margin-bottom: 20px;
-    box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura/altura */
+    box-sizing: border-box;
 }
 
 .flex-colunar {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Espaçamento entre os itens flex */
+    gap: 10px;
 }
 
-/* Ajustes para os spans de acertos/erros */
 #pontuacaoDuranteJogo span,
 #pontuacaoFinalJogo span {
-    width: 100%; /* Para que cada span ocupe a largura total disponível */
+    width: 100%;
     text-align: left;
+    color: #C90A73;
 }
 
-.border-primary {
-    border: 1px solid var(--cor-borda);
-}
-
-.border-secondary {
-    border: 1px solid var(--cor-borda);
+.border-primary, .border-secondary {
+    border: 1px solid #F3C6DF;
 }
 
 .padding-8 {
     padding: 8px;
 }
 
+/* --- Estilos para o botão INICIAR QUIZ, SUBMETER, AVANÇAR (.botao_entrar) --- */
+.botao_entrar {
+    background-color: #C90A73;
+    color: #FFFFFF; /* Texto branco como padrão */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-family: "Gochi Hand", cursive;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Adiciona transição para a cor do texto */
+    text-transform: uppercase;
+    box-sizing: border-box;
+}
+
+.botao_entrar:hover {
+    background-color: #a3085c;
+    color: black; /* FAZ O TEXTO FICAR PRETO NO HOVER */
+}
+
+/* Estilos para o botão APAGAR / TENTAR NOVAMENTE (.botao_apagar) */
+.botao_apagar {
+    background-color: #f44336;
+    color: #FFFFFF;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-family: "Gochi Hand", cursive;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    box-sizing: border-box;
+}
+
+.botao_apagar:hover {
+    background-color: #d32f2f;
+}
+
 #btnIniciarQuiz {
-    width: auto; /* Deixa o botão se ajustar ao conteúdo */
-    align-self: center; /* Centraliza o botão no flex container */
+    width: auto;
+    align-self: center;
     padding: 15px 30px;
     font-size: 1.2em;
     font-weight: bold;
     margin-bottom: 20px;
+    /* O retângulo branco em volta já é do .container ou .quiz-container */
+    /* Se precisar de um box-shadow diferente aqui, adicione */
 }
 
-/* Estilos para o título da pergunta e informações */
 #infoQuestao,
 #perguntaDaQuestaoAtual,
 #infoAlternativas {
     margin-bottom: 15px;
+    color: #C90A73;
 }
 
 #perguntaDaQuestaoAtual {
-    font-size: 1.1em;
+    font-size: 1.3em;
     font-weight: bold;
     text-align: center;
+    color: #C90A73;
 }
 
 #infoAlternativas {
     font-style: italic;
-    font-size: 0.9em;
-    color: var(--cor-texto-primaria);
+    font-size: 1em;
+    color: #C90A73;
 }
 
-/* Estilos para as opções de rádio */
 #opcoes {
-    gap: 12px; /* Espaçamento entre as opções */
+    gap: 12px;
+    width: 100%;
 }
 
 .radio-option {
     margin-right: 8px;
     cursor: pointer;
-    vertical-align: middle; /* Alinha o rádio com o texto do label */
+    vertical-align: middle;
 }
 
 .option-label {
@@ -141,44 +178,43 @@ body {
     padding: 10px;
     border-radius: 5px;
     transition: background-color 0.2s ease, color 0.2s ease;
-    display: inline-block; /* Para que o padding funcione corretamente */
-    width: calc(100% - 30px); /* Ajusta a largura para o padding do rádio */
+    display: inline-block;
+    width: calc(100% - 30px);
     vertical-align: middle;
+    border: 1px solid #F3C6DF;
+    color: #C90A73;
+    background-color: #FFFFFF;
 }
 
 .option-label:hover {
-    background-color: var(--cor-hover-alternativa);
+    background-color: #ffe6f5;
 }
 
-/* Estilos para os botões */
 #botoes {
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-top: 20px;
+    width: 100%;
 }
 
 #botoes button {
-    width: 100%; /* Botões ocupam a largura total disponível */
-    padding: 12px 20px;
-    font-size: 1em;
-    border-radius: 8px; /* Ajusta o border-radius para combinar com os botões de login */
+    width: 100%;
 }
 
-/* Sobrescrevendo as cores de sucesso/erro/aviso para ter fundo */
 .text-success-with-bg {
-    background-color: var(--cor-sucesso-fundo);
-    color: var(--cor-sucesso-texto);
+    background-color: #d4edda;
+    color: #155724;
 }
 
 .text-danger-with-bg {
-    background-color: var(--cor-danger-fundo);
-    color: var(--cor-danger-texto);
+    background-color: #f8d7da;
+    color: #721c24;
 }
 
 .text-warning-with-bg {
-    background-color: var(--cor-warning-fundo);
-    color: var(--cor-warning-texto);
+    background-color: #fff3cd;
+    color: #856404;
 }
 
 .final-message {
@@ -190,42 +226,6 @@ body {
     margin-top: 10px;
 }
 
-/* Estilo para quando o jogo é finalizado (opcional) */
-#jogo.text-new-gray {
-    color: var(--cor-cinza-texto);
-}
-
-/* Estilos do botão voltar da página de login (se quiser manter no quiz) */
-.navbar {
-    width: 100%;
-    padding: 15px;
-    background-color: var(--cor-secundaria); /* Ou a cor do seu navbar de login */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    display: flex; /* Garante que a navbar e o botão sejam flexíveis */
-    justify-content: flex-start; /* Alinha o botão à esquerda */
-    box-sizing: border-box;
-}
-
-.botao_voltar {
-    background-color: var(--cor-botao-primario); /* Ou uma cor neutra */
-    color: var(--cor-texto-botao);
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-}
-
-.botao_voltar a {
-    color: inherit; /* Herda a cor do botão */
-    text-decoration: none;
-}
-
-/* Media Queries para responsividade */
 @media (max-width: 768px) {
     .container {
         padding: 20px;

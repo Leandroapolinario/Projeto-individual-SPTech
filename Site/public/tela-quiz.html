@@ -75,31 +75,54 @@
     </div>
 
     <script>
+
+        function voltar() {
+
+        window.location.assign("index.html")
+    }
+
         const listaDeQuestoes = [
             {
-                pergunta: "Qual mês tem 30 dias?",
+                pergunta: "O mês que a Juju nasceu?",
                 alternativaA: "Janeiro",
                 alternativaB: "Dezembro",
-                alternativaC: "Junho",
-                alternativaD: "Agosto",
+                alternativaC: "Abril",
+                alternativaD: "Junho",
                 alternativaCorreta: "alternativaC"
             },
             {
-                pergunta: "Quantas horas tem em um dia?",
-                alternativaA: "30 horas",
-                alternativaB: "38 horas",
-                alternativaC: "48 horas",
-                alternativaD: "24 horas",
+                pergunta: "A Júlia é de que signo?",
+                alternativaA: "Áries",
+                alternativaB: "Peixes",
+                alternativaC: "Escorpião",
+                alternativaD: "Touro",
                 alternativaCorreta: "alternativaD"
             },
             {
-                pergunta: "Qual destes números é ímpar?",
-                alternativaA: "Dez",
-                alternativaB: "Doze",
-                alternativaC: "Oito",
-                alternativaD: "Onze",
+                pergunta: "Qual o dia que a Júlia e o tio Lê se conheceram pessoalmente?",
+                alternativaA: "31",
+                alternativaB: "22",
+                alternativaC: "18",
+                alternativaD: "26",
                 alternativaCorreta: "alternativaD"
+            },
+            {
+                pergunta: "Quantos anos a Júlia tem?",
+                alternativaA: "4 anos",
+                alternativaB: "5 anos",
+                alternativaC: "2 anos",
+                alternativaD: "3 anos",
+                alternativaCorreta: "alternativaA"
+            },
+            {
+                pergunta: "Qual a personagem que a Jujuba ama?",
+                alternativaA: "Kristoff, de Frozen",
+                alternativaB: "Simba, do Rei Leão",
+                alternativaC: "Sky, Patrulha Canina",
+                alternativaD: "Princesa Jujuba, da Hora da Aventura",
+                alternativaCorreta: "alternativaC"
             }
+
         ];
 
         let numeroDaQuestaoAtual = 0;
