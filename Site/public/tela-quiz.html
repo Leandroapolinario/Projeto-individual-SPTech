@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="styles/tela.css">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+ <div class="navbar">
+        <button class="botao_voltar">
+            <a href="index.html">Voltar</a>
+        </button>
+    </div>
+    <div class="container">
+        <div class="container">
+            <div class="titulo">
+              <br><br>
+              LOGIN
+            </div><br>
+            <div class="campos">
+                <div class="txt_campo">
+                    Nome </div>
+                <input type="text" id="input_usuario"> </div>
+            <div class="campos">
+                <div class="txt_campo">
+                    senha
+                </div>
+                <input type="password" id="input_senha">
+            </div>
+            <div id="div_condicao_cadastrar"></div>
+            <div class="possui_conta">
+                <div>Esqueceu a senha?</div> <a href="">click aqui</a>
+            </div>
+            <div class="botoes">
+                <button class="botao_apagar" onclick="apagar()">
+                    <img src="assets/img/lixeira.svg" alt="">
+                </button>
+                <button class="botao_entrar" onclick="entrar()">
+                    entrar
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    function apagar() {
+        document.getElementById("input_usuario").value = ``; // Atualizado o ID
+        input_senha.value = ``;
+    }
+
+function voltar() {
+
+        window.location.assign("index.html")
+    }
+
+
+    function entrar() {
+        var usuarioVar = document.getElementById("input_usuario").value; // Atualizado o ID
+        var senhaVar = input_senha.value;
+
+        if (usuarioVar == `` || senhaVar == ``) {
+            div_condicao_cadastrar.innerHTML = `<div class="errado">Preencha todos os campos para efetivar o login</div>`;
+        } else {
+            fetch("/usuarios/logar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    emailServer: usuarioVar, 
+                    senhaServer: senhaVar
+                })
+            }).then(function (resposta) {
+                console.log("Estou no THEN do login()");
+
+                if (resposta.ok) {
+                    console.log(resposta);
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+
+                        sessionStorage.ID_USUARIO = json.idUsuario;
+                        sessionStorage.NOME_USUARIO = json.nome;
+                        sessionStorage.EMAIL_USUARIO = json.nome; // Agora armazenamos o nome no lugar do email
+                        sessionStorage.DESCRICAO_USUARIO = json.descricao;
+                        sessionStorage.IMAGEM_PERFIL = json.imagem_perfil;
+
+                        console.log("window.location = site/explorer.html");
+                        // window.location = "site/explorer.html"; // Descomente para redirecionar
+                    });
+                } else {
+                    div_condicao_cadastrar.innerHTML = `Nome de usuário/senha estão incorretos`; // Mensagem de erro atualizada
+                    console.log("Houve um problema ao tentar realizar o login!");
+
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                        return true;
+                    });
+                }
+            }).catch(function (erro) {
+                console.log(erro);
+            });
+            return false;
+        }
+    }
+</script>
