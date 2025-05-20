@@ -4,110 +4,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz</title>
+    <title>Quiz Interativo</title>
     <link rel="stylesheet" href="styles/tela.css">
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/quiz.css">
 </head>
 
-<body>
- <div class="navbar">
+<body onload="onloadEsconder()">
+    <div class="navbar">
         <button class="botao_voltar">
             <a href="index.html">Voltar</a>
         </button>
     </div>
     <div class="container">
-        <div class="container">
-            <div class="titulo">
-              <br><br>
-              LOGIN
-            </div><br>
-            <div class="campos">
-                <div class="txt_campo">
-                    Nome </div>
-                <input type="text" id="input_usuario"> </div>
-            <div class="campos">
-                <div class="txt_campo">
-                    senha
+        <div id="pontuacaoEJogo" class="quiz-container">
+            <button id="btnIniciarQuiz" class="botao_entrar" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+
+            <div id="pontuacao" class="flex-colunar border-primary">
+                <div id="pontuacaoDuranteJogo" class="flex-colunar padding-8">
+                    <span>Quantidade de acertos: <span id="spanCertas">0</span></span>
+                    <span>Quantidade de erros: <span id="spanErradas">0</span></span>
                 </div>
-                <input type="password" id="input_senha">
+                <div id="pontuacaoFinalJogo" class="flex-colunar padding-8" style="display: none;">
+                    <span id="pontuacaoFinal">Pontuação Final:
+                        <span id="spanPontuacaoFinal">***</span>
+                    </span>
+                    <span id="msgFinal" class="final-message">***</span>
+                </div>
             </div>
-            <div id="div_condicao_cadastrar"></div>
-            <div class="possui_conta">
-                <div>Esqueceu a senha?</div> <a href="">click aqui</a>
-            </div>
-            <div class="botoes">
-                <button class="botao_apagar" onclick="apagar()">
-                    <img src="assets/img/lixeira.svg" alt="">
-                </button>
-                <button class="botao_entrar" onclick="entrar()">
-                    entrar
-                </button>
+
+            <div id="jogo" class="flex-colunar border-secondary">
+                <div id="infoQuestao" class="padding-8">
+                    <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span> questões.</span>
+                </div>
+
+                <div id="perguntaDaQuestaoAtual" class="padding-8">
+                    <span id="spanQuestaoExibida" class="text-bold"></span>
+                </div>
+
+                <div id="infoAlternativas" class="padding-8">
+                    <span><em>Escolha uma opção dentre as abaixo:</em></span>
+                </div>
+
+                <div id="opcoes" class="flex-colunar padding-8">
+                    <span>
+                        <input type="radio" id="primeiraOpcao" name="option" class="radio-option" value="alternativaA" />
+                        <label for="primeiraOpcao" class="option-label" id="labelOpcaoUm"></label>
+                    </span>
+                    <span>
+                        <input type="radio" id="segundaOpcao" name="option" class="radio-option" value="alternativaB" />
+                        <label for="segundaOpcao" class="option-label" id="labelOpcaoDois"></label>
+                    </span>
+                    <span>
+                        <input type="radio" id="terceiraOpcao" name="option" class="radio-option" value="alternativaC" />
+                        <label for="terceiraOpcao" class="option-label" id="labelOpcaoTres"></label>
+                    </span>
+                    <span>
+                        <input type="radio" id="quartaOpcao" name="option" class="radio-option" value="alternativaD" />
+                        <label for="quartaOpcao" class="option-label" id="labelOpcaoQuatro"></label>
+                    </span>
+                </div>
+
+                <div id="botoes" class="flex-colunar padding-8">
+                    <button onclick="submeter()" id="btnSubmeter" class="botao_entrar">Submeter resposta</button>
+                    <button onclick="avancar()" id="btnProx" class="botao_entrar" disabled>Avançar para próxima questão</button>
+                    <button onclick="tentarNovamente()" id="btnTentarNovamente" class="botao_apagar" disabled>Tentar novamente</button>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        const listaDeQuestoes = [
+            {
+                pergunta: "Qual mês tem 30 dias?",
+                alternativaA: "Janeiro",
+                alternativaB: "Dezembro",
+                alternativaC: "Junho",
+                alternativaD: "Agosto",
+                alternativaCorreta: "alternativaC"
+            },
+            {
+                pergunta: "Quantas horas tem em um dia?",
+                alternativaA: "30 horas",
+                alternativaB: "38 horas",
+                alternativaC: "48 horas",
+                alternativaD: "24 horas",
+                alternativaCorreta: "alternativaD"
+            },
+            {
+                pergunta: "Qual destes números é ímpar?",
+                alternativaA: "Dez",
+                alternativaB: "Doze",
+                alternativaC: "Oito",
+                alternativaD: "Onze",
+                alternativaCorreta: "alternativaD"
+            }
+        ];
+
+        let numeroDaQuestaoAtual = 0;
+        let pontuacaoFinal = 0;
+        let certas = 0;
+        let erradas = 0;
+        const quantidadeDeQuestoes = listaDeQuestoes.length;
+
+        function onloadEsconder() {
+            document.getElementById('pontuacao').style.display = "none";
+            document.getElementById('jogo').style.display = "none";
+            document.getElementById('pontuacaoFinalJogo').style.display = "none";
+        }
+
+        function iniciarQuiz() {
+            document.getElementById('pontuacao').style.display = "flex";
+            document.getElementById('jogo').style.display = "flex";
+            document.getElementById('btnIniciarQuiz').style.display = "none";
+
+            document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes;
+            document.getElementById('spanCertas').innerHTML = certas;
+            document.getElementById('spanErradas').innerHTML = erradas;
+
+
+            preencherHTMLcomQuestaoAtual(0);
+
+            document.getElementById('btnSubmeter').disabled = false;
+            document.getElementById('btnProx').disabled = true;
+            document.getElementById('btnTentarNovamente').disabled = true;
+        }
+
+        function preencherHTMLcomQuestaoAtual(index) {
+            habilitarAlternativas(true);
+            const questaoAtual = listaDeQuestoes[index];
+            numeroDaQuestaoAtual = index;
+            document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1;
+            document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
+            document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.alternativaA;
+            document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB;
+            document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.alternativaC;
+            document.getElementById("labelOpcaoQuatro").innerHTML = questaoAtual.alternativaD;
+        }
+
+        function submeter() {
+            const options = document.getElementsByName("option");
+            let selectedOption = null;
+
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].checked) {
+                    selectedOption = options[i];
+                    break;
+                }
+            }
+
+            if (!selectedOption) {
+                alert("Não há alternativas escolhidas. Escolha uma opção.");
+            } else {
+                document.getElementById('btnSubmeter').disabled = true;
+                document.getElementById('btnProx').disabled = false;
+                habilitarAlternativas(false);
+                checarResposta(selectedOption.value);
+            }
+        }
+
+        function habilitarAlternativas(trueOrFalse) {
+            const options = document.getElementsByName("option");
+            for (let i = 0; i < options.length; i++) {
+                options[i].disabled = !trueOrFalse;
+            }
+        }
+
+        function avancar() {
+            document.getElementById('btnProx').disabled = true;
+            document.getElementById('btnSubmeter').disabled = false;
+
+            desmarcarRadioButtons();
+            limparCoresBackgroundOpcoes();
+
+            if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
+                numeroDaQuestaoAtual++;
+                preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual);
+            } else {
+                finalizarJogo();
+            }
+        }
+
+        function tentarNovamente() {
+            window.location.reload();
+        }
+
+        function checarResposta(respostaUsuario) {
+            const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual];
+            const respostaCorretaDaQuestao = questaoAtual.alternativaCorreta;
+
+            const options = document.getElementsByName("option");
+            let labelCorretaId = null;
+
+            options.forEach((option) => {
+                if (option.value === respostaCorretaDaQuestao) {
+                    labelCorretaId = option.labels[0].id;
+                }
+            });
+
+            if (respostaUsuario === respostaCorretaDaQuestao) {
+                document.getElementById(labelCorretaId).classList.add("text-success-with-bg");
+                pontuacaoFinal++;
+                certas++;
+            } else {
+                const labelErradaId = document.querySelector(`input[value="${respostaUsuario}"]`).labels[0].id;
+                document.getElementById(labelErradaId).classList.add("text-danger-with-bg");
+                document.getElementById(labelCorretaId).classList.add("text-success-with-bg");
+                erradas++;
+            }
+            document.getElementById("spanCertas").innerHTML = certas;
+            document.getElementById("spanErradas").innerHTML = erradas;
+        }
+
+        function limparCoresBackgroundOpcoes() {
+            const options = document.getElementsByName("option");
+            options.forEach((option) => {
+                document.getElementById(option.labels[0].id).classList.remove("text-danger-with-bg");
+                document.getElementById(option.labels[0].id).classList.remove("text-success-with-bg");
+            });
+        }
+
+        function desmarcarRadioButtons() {
+            const options = document.getElementsByName("option");
+            for (let i = 0; i < options.length; i++) {
+                options[i].checked = false;
+            }
+        }
+
+        function finalizarJogo() {
+            let textoParaMensagemFinal = null;
+            let classComCoresParaMensagemFinal = null;
+            const porcentagemFinalDeAcertos = pontuacaoFinal / quantidadeDeQuestoes;
+
+            if (porcentagemFinalDeAcertos <= 0.3) {
+                textoParaMensagemFinal = "Parece que você não estudou...";
+                classComCoresParaMensagemFinal = "text-danger-with-bg";
+            } else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.9) {
+                textoParaMensagemFinal = "Pode melhorar na próxima, hein!";
+                classComCoresParaMensagemFinal = "text-warning-with-bg";
+            } else if (porcentagemFinalDeAcertos >= 0.9) {
+                textoParaMensagemFinal = "Uau, parabéns!";
+                classComCoresParaMensagemFinal = "text-success-with-bg";
+            }
+
+            textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos) * 100) + "% das questões.";
+
+            document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal;
+            document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal);
+            document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal;
+
+            // Esconde os elementos do jogo e exibe a pontuação final
+            document.getElementById('jogo').style.display = "none";
+            document.getElementById('pontuacaoDuranteJogo').style.display = "none";
+            document.getElementById('pontuacaoFinalJogo').style.display = "flex";
+
+            document.getElementById('btnProx').disabled = true;
+            document.getElementById('btnSubmeter').disabled = true;
+            document.getElementById('btnTentarNovamente').disabled = false;
+        }
+    </script>
 </body>
 
 </html>
-<script>
-    function apagar() {
-        document.getElementById("input_usuario").value = ``; // Atualizado o ID
-        input_senha.value = ``;
-    }
-
-function voltar() {
-
-        window.location.assign("index.html")
-    }
-
-
-    function entrar() {
-        var usuarioVar = document.getElementById("input_usuario").value; // Atualizado o ID
-        var senhaVar = input_senha.value;
-
-        if (usuarioVar == `` || senhaVar == ``) {
-            div_condicao_cadastrar.innerHTML = `<div class="errado">Preencha todos os campos para efetivar o login</div>`;
-        } else {
-            fetch("/usuarios/logar", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    emailServer: usuarioVar, 
-                    senhaServer: senhaVar
-                })
-            }).then(function (resposta) {
-                console.log("Estou no THEN do login()");
-
-                if (resposta.ok) {
-                    console.log(resposta);
-
-                    resposta.json().then(json => {
-                        console.log(json);
-                        console.log(JSON.stringify(json));
-
-                        sessionStorage.ID_USUARIO = json.idUsuario;
-                        sessionStorage.NOME_USUARIO = json.nome;
-                        sessionStorage.EMAIL_USUARIO = json.nome; // Agora armazenamos o nome no lugar do email
-                        sessionStorage.DESCRICAO_USUARIO = json.descricao;
-                        sessionStorage.IMAGEM_PERFIL = json.imagem_perfil;
-
-                        console.log("window.location = site/explorer.html");
-                        // window.location = "site/explorer.html"; // Descomente para redirecionar
-                    });
-                } else {
-                    div_condicao_cadastrar.innerHTML = `Nome de usuário/senha estão incorretos`; // Mensagem de erro atualizada
-                    console.log("Houve um problema ao tentar realizar o login!");
-
-                    resposta.text().then(texto => {
-                        console.error(texto);
-                        return true;
-                    });
-                }
-            }).catch(function (erro) {
-                console.log(erro);
-            });
-            return false;
-        }
-    }
-</script>
