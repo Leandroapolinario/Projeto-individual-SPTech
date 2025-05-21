@@ -30,14 +30,13 @@ body {
     box-sizing: border-box;
 }
 
-/* --- Estilos do Botão Voltar (REMOVIDOS DAQUI para usar o estilo de style.css) --- */
-/* Apenas garanta que o link dentro do botão não tenha sublinhado extra */
+
 .botao_voltar a {
-    text-decoration: none; /* Remove o sublinhado padrão do link */
-    /* A cor e efeitos de hover virão do style.css ou tela.css */
+    text-decoration: none; 
+
 }
 
-/* --- Seus estilos de quiz adaptados --- */
+
 .container {
     width: 100%;
     max-width: 600px;
@@ -92,27 +91,26 @@ body {
     padding: 8px;
 }
 
-/* --- Estilos para o botão INICIAR QUIZ, SUBMETER, AVANÇAR (.botao_entrar) --- */
 .botao_entrar {
     background-color: #C90A73;
-    color: #FFFFFF; /* Texto branco como padrão */
+    color: #FFFFFF; 
     padding: 12px 20px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1em;
     font-family: "Gochi Hand", cursive;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Adiciona transição para a cor do texto */
+    transition: background-color 0.3s ease, color 0.3s ease;
     text-transform: uppercase;
     box-sizing: border-box;
 }
 
 .botao_entrar:hover {
     background-color: #a3085c;
-    color: black; /* FAZ O TEXTO FICAR PRETO NO HOVER */
+    color: black; 
 }
 
-/* Estilos para o botão APAGAR / TENTAR NOVAMENTE (.botao_apagar) */
+
 .botao_apagar {
     background-color: #f44336;
     color: #FFFFFF;
@@ -138,8 +136,7 @@ body {
     font-size: 1.2em;
     font-weight: bold;
     margin-bottom: 20px;
-    /* O retângulo branco em volta já é do .container ou .quiz-container */
-    /* Se precisar de um box-shadow diferente aqui, adicione */
+
 }
 
 #infoQuestao,
