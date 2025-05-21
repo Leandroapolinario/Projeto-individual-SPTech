@@ -2,16 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
 
 body {
-    padding-top: 60px;
+    padding-top: 60px; /* Mantém o espaço para a navbar fixa */
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 60px);
+    height: calc(100vh - 60px); /* Usa height ao invés de min-height para fixar a altura */
     margin: 0;
     background-color: #F3C6DF;
     color: #333333;
     font-family: "Gochi Hand", cursive;
-    line-height: 1.6;
+    line-height: 1.4; /* Reduz o line-height para compactar o texto */
+    overflow: hidden; /* ABSOLUTAMENTE ESSENCIAL: Evita qualquer tipo de rolagem no body */
 }
 
 /* --- Estilos da Navbar (Idênticos ao seu style.css de login) --- */
@@ -22,34 +23,38 @@ body {
     width: 100%;
     background-color: #f3c6df;
     z-index: 1000;
-    padding: 10px 0;
+    padding: 8px 0; /* Padding um pouco menor */
     transition: transform 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     box-sizing: border-box;
+    height: 50px; /* Altura da navbar levemente reduzida */
 }
-
 
 .botao_voltar a {
-    text-decoration: none; 
-
+    text-decoration: none;
+    font-size: 0.9em; /* Texto do botão um pouco menor */
+    padding: 5px 10px; /* Padding menor para o botão */
 }
 
-
 .container {
-    width: 100%;
-    max-width: 600px;
-    margin: 20px auto;
-    justify-content: space-between;
+    width: 95%; /* Ocupa um pouco mais de largura para usar o espaço */
+    max-width: 550px; /* Limite máximo para não esticar demais em telas largas */
+    margin: auto; /* Centraliza o container na vertical */
+    display: flex;
+    justify-content: center; /* Centraliza verticalmente o conteúdo */
     align-items: center;
     flex-direction: column;
-    gap: 20px;
-    padding: 30px;
-    background-color: #FFFFFF; /* Fundo branco para o container do quiz */
+    gap: 10px; /* Reduz o espaçamento entre os elementos */
+    padding: 20px; /* Padding interno menor */
+    background-color: #FFFFFF;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
+    height: calc(100vh - 120px); /* Ajusta a altura para caber perfeitamente na tela. 60px navbar + 60px de margem ou padding extra */
+    overflow: hidden; /* Garante que o container não role */
+    position: relative; /* Necessário para posicionar o botão iniciar */
 }
 
 .quiz-container {
@@ -57,130 +62,89 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    flex-grow: 1; /* Permite que o quiz-container use o espaço restante */
+    justify-content: space-between; /* Distribui o conteúdo verticalmente */
 }
 
+/* Esconde os elementos do quiz antes de iniciar */
 #pontuacao,
 #jogo {
     width: 100%;
     background-color: #FFFFFF;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
-    margin-bottom: 20px;
+    border-radius: 8px; /* Bordas ligeiramente menores */
+    padding: 15px; /* Padding interno reduzido */
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 10px; /* Margem inferior reduzida */
     box-sizing: border-box;
+    flex-shrink: 0; /* Impede que esses elementos encolham mais do que o necessário */
+    display: none; /* Esconde por padrão, JS vai mostrar */
 }
+
+#pontuacao.visible,
+#jogo.visible {
+    display: flex; /* Classe para mostrar os elementos quando o quiz iniciar */
+}
+
+#btnIniciarQuiz {
+    width: 80%; /* Ajusta a largura do botão iniciar */
+    padding: 15px 30px; /* Padding maior para destaque */
+    font-size: 1.4em; /* Fonte maior para destaque */
+    font-weight: bold;
+    position: absolute; /* Posicionamento absoluto dentro do container */
+    top: 50%; /* Centraliza verticalmente */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta para centralizar exatamente */
+    z-index: 1; /* Garante que ele fique acima de outros elementos se sobrepostos */
+}
+
 
 .flex-colunar {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px; /* Reduz o espaçamento entre itens flex-colunar */
 }
 
 #pontuacaoDuranteJogo span,
 #pontuacaoFinalJogo span {
-    width: 100%;
-    text-align: left;
-    color: #C90A73;
-}
-
-.border-primary, .border-secondary {
-    border: 1px solid #F3C6DF;
-}
-
-.padding-8 {
-    padding: 8px;
-}
-
-.botao_entrar {
-    background-color: #C90A73;
-    color: #FFFFFF; 
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em;
-    font-family: "Gochi Hand", cursive;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    text-transform: uppercase;
-    box-sizing: border-box;
-}
-
-.botao_entrar:hover {
-    background-color: #a3085c;
-    color: black; 
-}
-
-
-.botao_apagar {
-    background-color: #f44336;
-    color: #FFFFFF;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em;
-    font-family: "Gochi Hand", cursive;
-    transition: background-color 0.3s ease;
-    text-transform: uppercase;
-    box-sizing: border-box;
-}
-
-.botao_apagar:hover {
-    background-color: #d32f2f;
-}
-
-#btnIniciarQuiz {
-    width: auto;
-    align-self: center;
-    padding: 15px 30px;
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-bottom: 20px;
-
+    font-size: 0.9em; /* Tamanho de fonte menor */
 }
 
 #infoQuestao,
 #perguntaDaQuestaoAtual,
 #infoAlternativas {
-    margin-bottom: 15px;
+    margin-bottom: 10px; /* Margem inferior reduzida */
     color: #C90A73;
+    font-size: 0.95em; /* Fonte um pouco menor */
 }
 
 #perguntaDaQuestaoAtual {
-    font-size: 1.3em;
-    font-weight: bold;
-    text-align: center;
-    color: #C90A73;
-}
-
-#infoAlternativas {
-    font-style: italic;
-    font-size: 1em;
-    color: #C90A73;
+    font-size: 1.2em; /* Fonte da pergunta um pouco menor */
+    padding: 5px; /* Padding reduzido */
 }
 
 #opcoes {
-    gap: 12px;
+    gap: 8px; /* Espaçamento menor entre as opções */
     width: 100%;
+    flex-grow: 1; /* Permite que as opções usem mais espaço */
+    justify-content: center; /* Centraliza as opções verticalmente */
 }
 
 .radio-option {
-    margin-right: 8px;
-    cursor: pointer;
-    vertical-align: middle;
+    margin-right: 5px; /* Margem menor para o radio button */
 }
 
 .option-label {
     cursor: pointer;
-    padding: 10px;
+    padding: 8px; /* Padding menor para o label da opção */
     border-radius: 5px;
     transition: background-color 0.2s ease, color 0.2s ease;
     display: inline-block;
-    width: calc(100% - 30px);
+    width: calc(100% - 25px); /* Ajusta a largura com o radio button */
     vertical-align: middle;
     border: 1px solid #F3C6DF;
     color: #C90A73;
     background-color: #FFFFFF;
+    font-size: 0.9em; /* Fonte menor para as alternativas */
 }
 
 .option-label:hover {
@@ -189,14 +153,19 @@ body {
 
 #botoes {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
+    flex-direction: row; /* Coloca os botões lado a lado */
+    flex-wrap: wrap; /* Permite que os botões quebrem linha se não houver espaço */
+    justify-content: center; /* Centraliza os botões */
+    gap: 10px; /* Espaçamento entre os botões */
+    margin-top: 15px; /* Margem superior reduzida */
     width: 100%;
 }
 
 #botoes button {
-    width: 100%;
+    width: auto; /* Deixa a largura automática para se ajustar ao conteúdo */
+    flex-grow: 1; /* Permite que os botões cresçam para ocupar o espaço */
+    padding: 10px 15px; /* Padding menor para os botões */
+    font-size: 0.9em; /* Fonte menor para os botões */
 }
 
 .text-success-with-bg {
@@ -215,46 +184,80 @@ body {
 }
 
 .final-message {
-    font-size: 1.1em;
-    font-weight: bold;
-    text-align: center;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
+    font-size: 1em; /* Fonte ligeiramente menor */
+    padding: 8px; /* Padding menor */
 }
 
+/* Ajustes de mídia para telas menores */
 @media (max-width: 768px) {
     .container {
-        padding: 20px;
-    }
-
-    #pontuacao,
-    #jogo {
         padding: 15px;
+        height: calc(100vh - 100px); /* Ajuste mais apertado para telas menores */
+        max-width: 95%; /* Ocupa mais espaço em telas menores */
     }
 
     #botoes button {
-        font-size: 0.9em;
-        padding: 10px 15px;
+        font-size: 0.85em; /* Fonte ainda menor */
+        padding: 8px 12px;
+    }
+
+    #btnIniciarQuiz {
+        font-size: 1.2em;
+        padding: 12px 25px;
     }
 }
 
 @media (max-width: 480px) {
     .container {
-        padding: 15px;
+        padding: 10px;
+        height: calc(100vh - 90px); /* Ajuste máximo para celulares */
+        gap: 8px;
     }
 
-    #btnIniciarQuiz {
-        font-size: 1em;
-        padding: 12px 25px;
+    .navbar {
+        height: 45px; /* Navbar ainda menor */
+        padding: 5px 0;
+    }
+
+    body {
+        padding-top: 45px;
+    }
+
+    #pontuacao,
+    #jogo {
+        padding: 10px;
+        margin-bottom: 8px;
+    }
+
+    #infoQuestao,
+    #perguntaDaQuestaoAtual,
+    #infoAlternativas {
+        font-size: 0.85em;
+        margin-bottom: 8px;
     }
 
     #perguntaDaQuestaoAtual {
-        font-size: 1em;
+        font-size: 1.1em;
     }
 
     .option-label {
-        font-size: 0.9em;
-        padding: 8px;
+        font-size: 0.8em;
+        padding: 6px;
+    }
+
+    #botoes {
+        gap: 8px;
+        flex-direction: column; /* Em telas muito pequenas, botões podem voltar a ser coluna */
+    }
+
+    #botoes button {
+        font-size: 0.8em;
+        padding: 10px;
+        width: 100%; /* Voltam a ocupar toda a largura */
+    }
+
+    #btnIniciarQuiz {
+        padding: 10px 20px;
+        font-size: 1em;
     }
 }
