@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Interativa</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Definindo a fonte Inter para todo o corpo */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilos básicos para os canvas dos gráficos para garantir responsividade */
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 min-h-screen flex items-center justify-center">
+    <div class="container mx-auto bg-white shadow-lg rounded-lg p-6 md:p-8 lg:p-10 max-w-4xl w-full">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Dashboard Interativa de Votos</h1>
+
+        <div class="mb-8 p-6 bg-blue-50 rounded-lg shadow-inner">
+            <h2 class="text-xl font-semibold text-blue-700 mb-4">Adicionar Novo Jogador e Votos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                <div>
+                    <label for="jogadorNome" class="block text-sm font-medium text-gray-700 mb-1">Nome do Jogador:</label>
+                    <input type="text" id="jogadorNome" placeholder="Ex: Messi" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="jogadorVotos" class="block text-sm font-medium text-gray-700 mb-1">Número de Votos:</label>
+                    <input type="number" id="jogadorVotos" placeholder="Ex: 100" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+                <div class="md:col-span-1">
+                    <button onclick="adicionarJogador()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+                        Adicionar Jogador
+                    </button>
+                </div>
+            </div>
+            <div id="messageBox" class="mt-4 p-3 rounded-md text-sm hidden" role="alert"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4 text-center">Gráfico de Linha</h2>
+                <canvas id="linha"></canvas>
+            </div>
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4 text-center">Gráfico de Barra</h2>
+                <canvas id="barra"></canvas>
+            </div>
+        </div>
+
+        <div class="mt-8 text-center">
+            <button onclick="resetarDados()" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+                Resetar Dados
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Variáveis globais para armazenar as instâncias dos gráficos
+        let myLineChart;
+        let myBarChart;
+        // Array para armazenar os dados dos jogadores
+        let dados = [];
+
+        // Função para exibir mensagens na caixa de mensagem
+        function showMessageBox(message, type = 'info') {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.textContent = message;
+            messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800', 'bg-yellow-100', 'text-yellow-800');
+
+            if (type === 'success') {
+                messageBox.classList.add('bg-green-100', 'text-green-800');
+            } else if (type === 'error') {
+                messageBox.classList.add('bg-red-100', 'text-red-800');
+            } else { // info or default
+                messageBox.classList.add('bg-blue-100', 'text-blue-800');
+            }
+            messageBox.classList.remove('hidden');
+            setTimeout(() => {
+                messageBox.classList.add('hidden');
+            }, 3000); // Esconde a mensagem após 3 segundos
+        }
+
+        // Função chamada ao carregar a página para obter e processar os dados iniciais
+        window.onload = function() {
+            // Dados simulados iniciais
+            dados = [{
+                jogador: 'Endrick',
+                votos: 10
+            }, {
+                jogador: 'João',
+                votos: 5
+            }, {
+                jogador: 'Maria',
+                votos: 15
+            }, {
+                jogador: 'José',
+                votos: 20
+            }, {
+                jogador: 'Pedro',
+                votos: 25
+            }, {
+                jogador: 'Ana',
+                votos: 30
+            }];
+
+            // Chamando a função para plotar os gráficos com os dados iniciais
+            plotarGraficos();
+        };
+
+        // Função principal para plotar ambos os gráficos
+        function plotarGraficos() {
+            plotarGraficoLinha(dados);
+            plotarGraficoBarra(dados);
+        }
+
+        // Função para plotar ou atualizar o gráfico de linha
+        function plotarGraficoLinha(dataToPlot) {
+            // Destruir a instância anterior do gráfico se ela existir
+            if (myLineChart) {
+                myLineChart.destroy();
+            }
+
+            // Separando os rótulos (labels) e os dados dos votos
+            var votos = [];
+            var jogadores = [];
+
+            // Preenchendo os arrays com os dados
+            for (var i = 0; i < dataToPlot.length; i++) {
+                votos.push(dataToPlot[i].votos);
+                jogadores.push(dataToPlot[i].jogador);
+            }
+
+            // Capturando o elemento canvas pelo id
+            var ctx = document.getElementById('linha').getContext('2d');
+            // Criando o gráfico de linha usando o Chart.js
+            myLineChart = new Chart(ctx, {
+                type: 'line', // Tipo de gráfico: linha
+                data: { // Dados para o gráfico
+                    labels: jogadores, // Rótulos no eixo X
+                    datasets: [{
+                        label: 'Votos', // Nome do conjunto de dados
+                        data: votos, // Dados dos votos
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)', // Cor de fundo da área abaixo da linha
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)', // Cor da linha
+                        ],
+                        borderWidth: 2, // Largura da linha
+                        tension: 0.4, // Suaviza a linha
+                        fill: true // Preenche a área abaixo da linha
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                        },
+                        title: {
+                            display: false,
+                            text: 'Gráfico de Linha de Votos'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Número de Votos'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Jogadores'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Função para plotar ou atualizar o gráfico de barra
+        function plotarGraficoBarra(dataToPlot) {
+            // Destruir a instância anterior do gráfico se ela existir
+            if (myBarChart) {
+                myBarChart.destroy();
+            }
+
+            var votos = [];
+            var jogadores = [];
+
+            // Preenchendo os arrays com os dados
+            for (var i = 0; i < dataToPlot.length; i++) {
+                votos.push(dataToPlot[i].votos);
+                jogadores.push(dataToPlot[i].jogador);
+            }
+
+            // Capturando o elemento canvas pelo id
+            var ctx = document.getElementById('barra').getContext('2d');
+            // Criando o gráfico de barra usando o Chart.js
+            myBarChart = new Chart(ctx, {
+                type: 'bar', // Tipo de gráfico: barra
+                data: { // Dados para o gráfico
+                    labels: jogadores, // Rótulos no eixo X
+                    datasets: [{
+                        label: 'Votos', // Nome do conjunto de dados
+                        data: votos, // Dados dos votos
+                        backgroundColor: [
+                            'rgba(153, 102, 255, 0.6)', // Cor de fundo das barras
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(153, 102, 255, 1)', // Cor da borda das barras
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1 // Largura da borda das barras
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                        },
+                        title: {
+                            display: false,
+                            text: 'Gráfico de Barra de Votos'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Número de Votos'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Jogadores'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Função para adicionar um novo jogador ou atualizar os votos de um existente
+        function adicionarJogador() {
+            const jogadorNomeInput = document.getElementById('jogadorNome');
+            const jogadorVotosInput = document.getElementById('jogadorVotos');
+
+            const nome = jogadorNomeInput.value.trim();
+            const votos = parseInt(jogadorVotosInput.value);
+
+            if (!nome) {
+                showMessageBox('Por favor, insira o nome do jogador.', 'error');
+                return;
+            }
+            if (isNaN(votos) || votos < 0) {
+                showMessageBox('Por favor, insira um número de votos válido (maior ou igual a zero).', 'error');
+                return;
+            }
+
+            // Verifica se o jogador já existe
+            const jogadorExistente = dados.find(j => j.jogador.toLowerCase() === nome.toLowerCase());
+
+            if (jogadorExistente) {
+                jogadorExistente.votos = votos; // Atualiza os votos
+                showMessageBox(`Votos de "${nome}" atualizados para ${votos}.`, 'success');
+            } else {
+                dados.push({
+                    jogador: nome,
+                    votos: votos
+                }); // Adiciona novo jogador
+                showMessageBox(`Jogador "${nome}" adicionado com ${votos} votos.`, 'success');
+            }
+
+            // Limpa os campos de entrada
+            jogadorNomeInput.value = '';
+            jogadorVotosInput.value = '';
+
+            // Re-plota os gráficos com os dados atualizados
+            plotarGraficos();
+        }
+
+        // Função para resetar os dados e os gráficos
+        function resetarDados() {
+            dados = []; // Limpa o array de dados
+            plotarGraficos(); // Re-plota os gráficos com dados vazios
+            showMessageBox('Dados resetados com sucesso!', 'info');
+        }
+    </script>
+</body>
+</html>

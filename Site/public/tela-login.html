@@ -36,9 +36,6 @@
                 <div>Esqueceu a senha?</div> <a href="">click aqui</a>
             </div>
             <div class="botoes">
-                <button class="botao_apagar" onclick="apagar()">
-                    <img src="assets/img/lixeira.svg" alt="">
-                </button>
                 <button class="botao_entrar" onclick="entrar()">
                     entrar
                 </button>
@@ -73,7 +70,7 @@ function voltar() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                emailServer: usuarioVar,
+                usuarioServer: usuarioVar,
                 senhaServer: senhaVar
             })
         }).then(function (resposta) {
@@ -88,10 +85,7 @@ function voltar() {
 
                     sessionStorage.ID_USUARIO = json.idUsuario;
                     sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.EMAIL_USUARIO = json.nome; // Agora armazenamos o nome no lugar do email
-                    sessionStorage.DESCRICAO_USUARIO = json.descricao;
-                    sessionStorage.IMAGEM_PERFIL = json.imagem_perfil;
-
+                    
                     console.log("window.location = site/explorer.html");
                     window.location.assign("tela-quiz.html")
 

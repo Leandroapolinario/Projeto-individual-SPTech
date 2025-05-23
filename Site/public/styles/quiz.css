@@ -2,20 +2,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
 
 body {
-    padding-top: 60px; /* Mantém o espaço para a navbar fixa */
+    padding-top: 50px; /* Ajusta o padding para a altura da navbar */
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 60px); /* Usa height ao invés de min-height para fixar a altura */
+    height: calc(100vh - 50px); /* Altura total da viewport menos a navbar */
     margin: 0;
     background-color: #F3C6DF;
     color: #333333;
     font-family: "Gochi Hand", cursive;
-    line-height: 1.4; /* Reduz o line-height para compactar o texto */
+    line-height: 1.2; /* Reduz bastante o line-height para compactar o texto */
     overflow: hidden; /* ABSOLUTAMENTE ESSENCIAL: Evita qualquer tipo de rolagem no body */
 }
 
-/* --- Estilos da Navbar (Idênticos ao seu style.css de login) --- */
+/* --- Estilos da Navbar --- */
 .navbar {
     position: fixed;
     top: 0;
@@ -23,47 +23,49 @@ body {
     width: 100%;
     background-color: #f3c6df;
     z-index: 1000;
-    padding: 8px 0; /* Padding um pouco menor */
+    padding: 5px 0; /* Padding mínimo para a navbar */
     transition: transform 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     box-sizing: border-box;
-    height: 50px; /* Altura da navbar levemente reduzida */
+    height: 50px; /* Altura fixa e compacta para a navbar */
 }
 
 .botao_voltar a {
     text-decoration: none;
-    font-size: 0.9em; /* Texto do botão um pouco menor */
-    padding: 5px 10px; /* Padding menor para o botão */
+    font-size: 0.8em; /* Fonte menor para o botão voltar */
+    padding: 3px 8px; /* Padding menor */
 }
 
 .container {
-    width: 95%; /* Ocupa um pouco mais de largura para usar o espaço */
-    max-width: 550px; /* Limite máximo para não esticar demais em telas largas */
-    margin: auto; /* Centraliza o container na vertical */
+    width: 98%; /* Ocupa quase toda a largura para maximizar o espaço */
+    max-width: 600px; /* Mantém um limite para telas muito largas */
+    margin: 0 auto; /* Centraliza vertical e horizontalmente no espaço restante do body */
     display: flex;
-    justify-content: center; /* Centraliza verticalmente o conteúdo */
+    justify-content: center; /* Centraliza conteúdo verticalmente */
     align-items: center;
     flex-direction: column;
-    gap: 10px; /* Reduz o espaçamento entre os elementos */
-    padding: 20px; /* Padding interno menor */
+    gap: 8px; /* Espaçamento muito reduzido entre os blocos */
+    padding: 15px; /* Padding interno reduzido ao mínimo */
     background-color: #FFFFFF;
     border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    height: calc(100vh - 120px); /* Ajusta a altura para caber perfeitamente na tela. 60px navbar + 60px de margem ou padding extra */
+    height: calc(100vh - 65px); /* Altura exata para caber na tela: 100vh - (navbar + 15px de padding do container) */
     overflow: hidden; /* Garante que o container não role */
     position: relative; /* Necessário para posicionar o botão iniciar */
 }
 
 .quiz-container {
+    /* REMOVIDO: padding: 70px; - Este era o grande problema! */
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     flex-grow: 1; /* Permite que o quiz-container use o espaço restante */
     justify-content: space-between; /* Distribui o conteúdo verticalmente */
+    overflow: hidden; /* Garante que o conteúdo dentro do quiz-container não role */
 }
 
 /* Esconde os elementos do quiz antes de iniciar */
@@ -71,10 +73,10 @@ body {
 #jogo {
     width: 100%;
     background-color: #FFFFFF;
-    border-radius: 8px; /* Bordas ligeiramente menores */
-    padding: 15px; /* Padding interno reduzido */
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
-    margin-bottom: 10px; /* Margem inferior reduzida */
+    border-radius: 8px;
+    padding: 10px; /* Padding interno bem reduzido */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 5px; /* Margem inferior mínima */
     box-sizing: border-box;
     flex-shrink: 0; /* Impede que esses elementos encolham mais do que o necessário */
     display: none; /* Esconde por padrão, JS vai mostrar */
@@ -86,65 +88,66 @@ body {
 }
 
 #btnIniciarQuiz {
-    width: 80%; /* Ajusta a largura do botão iniciar */
-    padding: 15px 30px; /* Padding maior para destaque */
-    font-size: 1.4em; /* Fonte maior para destaque */
+    width: 70%; /* Ajusta a largura do botão iniciar */
+    padding: 12px 20px; /* Padding ajustado */
+    font-size: 1.2em; /* Fonte ainda destacada */
     font-weight: bold;
     position: absolute; /* Posicionamento absoluto dentro do container */
     top: 50%; /* Centraliza verticalmente */
     left: 50%; /* Centraliza horizontalmente */
     transform: translate(-50%, -50%); /* Ajusta para centralizar exatamente */
-    z-index: 1; /* Garante que ele fique acima de outros elementos se sobrepostos */
+    z-index: 1;
 }
 
 
 .flex-colunar {
     display: flex;
     flex-direction: column;
-    gap: 8px; /* Reduz o espaçamento entre itens flex-colunar */
+    gap: 6px; /* Reduz ainda mais o espaçamento entre itens flex-colunar */
 }
 
 #pontuacaoDuranteJogo span,
 #pontuacaoFinalJogo span {
-    font-size: 0.9em; /* Tamanho de fonte menor */
+    font-size: 0.85em; /* Tamanho de fonte bem pequeno para pontuação */
 }
 
 #infoQuestao,
 #perguntaDaQuestaoAtual,
 #infoAlternativas {
-    margin-bottom: 10px; /* Margem inferior reduzida */
+    margin-bottom: 8px; /* Margem inferior mínima */
     color: #C90A73;
-    font-size: 0.95em; /* Fonte um pouco menor */
+    font-size: 0.9em; /* Fonte um pouco menor */
 }
 
 #perguntaDaQuestaoAtual {
-    font-size: 1.2em; /* Fonte da pergunta um pouco menor */
-    padding: 5px; /* Padding reduzido */
+    font-size: 1.1em; /* Fonte da pergunta mais compacta */
+    padding: 3px; /* Padding mínimo */
 }
 
 #opcoes {
-    gap: 8px; /* Espaçamento menor entre as opções */
+    gap: 6px; /* Espaçamento mínimo entre as opções */
     width: 100%;
-    flex-grow: 1; /* Permite que as opções usem mais espaço */
-    justify-content: center; /* Centraliza as opções verticalmente */
+    flex-grow: 1;
+    justify-content: center;
 }
 
 .radio-option {
-    margin-right: 5px; /* Margem menor para o radio button */
+    margin-right: 4px; /* Margem mínima para o radio button */
+    transform: scale(0.9); /* Reduz um pouco o tamanho do radio button */
 }
 
 .option-label {
     cursor: pointer;
-    padding: 8px; /* Padding menor para o label da opção */
+    padding: 6px; /* Padding mínimo para o label da opção */
     border-radius: 5px;
     transition: background-color 0.2s ease, color 0.2s ease;
     display: inline-block;
-    width: calc(100% - 25px); /* Ajusta a largura com o radio button */
+    width: calc(100% - 20px); /* Ajusta a largura com o radio button */
     vertical-align: middle;
     border: 1px solid #F3C6DF;
     color: #C90A73;
     background-color: #FFFFFF;
-    font-size: 0.9em; /* Fonte menor para as alternativas */
+    font-size: 0.85em; /* Fonte bem menor para as alternativas */
 }
 
 .option-label:hover {
@@ -156,16 +159,16 @@ body {
     flex-direction: row; /* Coloca os botões lado a lado */
     flex-wrap: wrap; /* Permite que os botões quebrem linha se não houver espaço */
     justify-content: center; /* Centraliza os botões */
-    gap: 10px; /* Espaçamento entre os botões */
-    margin-top: 15px; /* Margem superior reduzida */
+    gap: 8px; /* Espaçamento entre os botões */
+    margin-top: 10px; /* Margem superior mínima */
     width: 100%;
 }
 
 #botoes button {
-    width: auto; /* Deixa a largura automática para se ajustar ao conteúdo */
-    flex-grow: 1; /* Permite que os botões cresçam para ocupar o espaço */
-    padding: 10px 15px; /* Padding menor para os botões */
-    font-size: 0.9em; /* Fonte menor para os botões */
+    width: auto;
+    flex-grow: 1;
+    padding: 8px 12px; /* Padding menor para os botões */
+    font-size: 0.85em; /* Fonte menor para os botões */
 }
 
 .text-success-with-bg {
@@ -184,80 +187,85 @@ body {
 }
 
 .final-message {
-    font-size: 1em; /* Fonte ligeiramente menor */
-    padding: 8px; /* Padding menor */
+    font-size: 0.9em; /* Fonte menor para a mensagem final */
+    padding: 6px; /* Padding menor */
 }
 
-/* Ajustes de mídia para telas menores */
+/* Ajustes de mídia para telas menores - ainda mais agressivos */
 @media (max-width: 768px) {
     .container {
-        padding: 15px;
-        height: calc(100vh - 100px); /* Ajuste mais apertado para telas menores */
-        max-width: 95%; /* Ocupa mais espaço em telas menores */
+        padding: 10px;
+        height: calc(100vh - 70px); /* Ajuste apertado */
     }
-
+    body {
+        padding-top: 50px;
+    }
+    .navbar {
+        height: 50px;
+    }
+    #pontuacao,
+    #jogo {
+        padding: 8px;
+    }
+    .option-label {
+        font-size: 0.8em;
+        padding: 5px;
+    }
     #botoes button {
-        font-size: 0.85em; /* Fonte ainda menor */
-        padding: 8px 12px;
+        font-size: 0.8em;
+        padding: 7px 10px;
     }
-
-    #btnIniciarQuiz {
-        font-size: 1.2em;
-        padding: 12px 25px;
+    #perguntaDaQuestaoAtual {
+        font-size: 1em;
     }
 }
 
 @media (max-width: 480px) {
     .container {
-        padding: 10px;
-        height: calc(100vh - 90px); /* Ajuste máximo para celulares */
-        gap: 8px;
+        padding: 8px;
+        height: calc(100vh - 66px); /* Altura mínima para celulares */
+        gap: 5px;
     }
-
+    body {
+        padding-top: 50px;
+    }
     .navbar {
-        height: 45px; /* Navbar ainda menor */
+        height: 50px;
         padding: 5px 0;
     }
-
-    body {
-        padding-top: 45px;
-    }
-
     #pontuacao,
     #jogo {
-        padding: 10px;
-        margin-bottom: 8px;
+        padding: 6px;
+        margin-bottom: 3px;
     }
-
     #infoQuestao,
     #perguntaDaQuestaoAtual,
     #infoAlternativas {
-        font-size: 0.85em;
-        margin-bottom: 8px;
+        font-size: 0.75em; /* Fontes ainda menores */
+        margin-bottom: 5px;
     }
-
     #perguntaDaQuestaoAtual {
-        font-size: 1.1em;
+        font-size: 0.9em;
     }
-
     .option-label {
-        font-size: 0.8em;
-        padding: 6px;
+        font-size: 0.75em;
+        padding: 4px;
+        width: calc(100% - 18px); /* Ajuste menor */
     }
-
     #botoes {
-        gap: 8px;
-        flex-direction: column; /* Em telas muito pequenas, botões podem voltar a ser coluna */
+        gap: 6px;
+        flex-direction: column; /* Em telas muito pequenas, forçamos coluna */
     }
-
     #botoes button {
-        font-size: 0.8em;
-        padding: 10px;
-        width: 100%; /* Voltam a ocupar toda a largura */
+        font-size: 0.75em;
+        padding: 8px;
+        width: 100%; /* Ocupa toda a largura */
     }
-
     #btnIniciarQuiz {
-        padding: 10px 20px;
+        padding: 10px 15px;
         font-size: 1em;
+    }
+    .final-message {
+        font-size: 0.8em;
     }
 }

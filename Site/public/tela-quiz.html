@@ -17,69 +17,72 @@
         </button>
     </div>
     <div class="container">
-        <div id="pontuacaoEJogo" class="quiz-container">
-            <button id="btnIniciarQuiz" class="botao_entrar" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+        <button id="btnIniciarQuiz" class="botao_entrar" onclick="iniciarQuiz()">INICIAR QUIZ</button>
 
-            <div id="pontuacao" class="flex-colunar border-primary">
-                <div id="pontuacaoDuranteJogo" class="flex-colunar padding-8">
-                    <span>Quantidade de acertos: <span id="spanCertas">0</span></span>
-                    <span>Quantidade de erros: <span id="spanErradas">0</span></span>
-                </div>
-                <div id="pontuacaoFinalJogo" class="flex-colunar padding-8" style="display: none;">
-                    <span id="pontuacaoFinal">Pontuação Final:
-                        <span id="spanPontuacaoFinal">***</span>
-                    </span>
-                    <span id="msgFinal" class="final-message">***</span>
-                </div>
+        <div id="pontuacaoEJogo" class="quiz-container"></div>
+        <div id="pontuacao" class="flex-colunar border-primary">
+            <div id="pontuacaoDuranteJogo" class="flex-colunar padding-8">
+                <span>Quantidade de acertos: <span id="spanCertas">0</span></span>
+                <span>Quantidade de erros: <span id="spanErradas">0</span></span>
             </div>
-
-            <div id="jogo" class="flex-colunar border-secondary">
-                <div id="infoQuestao" class="padding-8">
-                    <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span> questões.</span>
-                </div>
-
-                <div id="perguntaDaQuestaoAtual" class="padding-8">
-                    <span id="spanQuestaoExibida" class="text-bold"></span>
-                </div>
-
-                <div id="infoAlternativas" class="padding-8">
-                    <span><em>Escolha uma opção dentre as abaixo:</em></span>
-                </div>
-
-                <div id="opcoes" class="flex-colunar padding-8">
-                    <span>
-                        <input type="radio" id="primeiraOpcao" name="option" class="radio-option" value="alternativaA" />
-                        <label for="primeiraOpcao" class="option-label" id="labelOpcaoUm"></label>
-                    </span>
-                    <span>
-                        <input type="radio" id="segundaOpcao" name="option" class="radio-option" value="alternativaB" />
-                        <label for="segundaOpcao" class="option-label" id="labelOpcaoDois"></label>
-                    </span>
-                    <span>
-                        <input type="radio" id="terceiraOpcao" name="option" class="radio-option" value="alternativaC" />
-                        <label for="terceiraOpcao" class="option-label" id="labelOpcaoTres"></label>
-                    </span>
-                    <span>
-                        <input type="radio" id="quartaOpcao" name="option" class="radio-option" value="alternativaD" />
-                        <label for="quartaOpcao" class="option-label" id="labelOpcaoQuatro"></label>
-                    </span>
-                </div>
-
-                <div id="botoes" class="flex-colunar padding-8">
-                    <button onclick="submeter()" id="btnSubmeter" class="botao_entrar">Submeter resposta</button>
-                    <button onclick="avancar()" id="btnProx" class="botao_entrar" disabled>Avançar para próxima questão</button>
-                    <button onclick="tentarNovamente()" id="btnTentarNovamente" class="botao_apagar" disabled>Tentar novamente</button>
-                </div>
+            <div id="pontuacaoFinalJogo" class="flex-colunar padding-8" style="display: none;">
+                <span id="pontuacaoFinal">Pontuação Final:
+                    <span id="spanPontuacaoFinal">***</span>
+                </span>
+                <span id="msgFinal" class="final-message">***</span>
             </div>
         </div>
+
+        <div id="jogo" class="flex-colunar border-secondary">
+            <div id="infoQuestao" class="padding-8">
+                <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span>
+                    questões.</span>
+            </div>
+
+            <div id="perguntaDaQuestaoAtual" class="padding-8">
+                <span id="spanQuestaoExibida" class="text-bold"></span>
+            </div>
+
+            <div id="infoAlternativas" class="padding-8">
+                <span><em>Escolha uma opção dentre as abaixo:</em></span>
+            </div>
+
+            <div id="opcoes" class="flex-colunar padding-8">
+                <span>
+                    <input type="radio" id="primeiraOpcao" name="option" class="radio-option" value="alternativaA" />
+                    <label for="primeiraOpcao" class="option-label" id="labelOpcaoUm"></label>
+                </span>
+                <span>
+                    <input type="radio" id="segundaOpcao" name="option" class="radio-option" value="alternativaB" />
+                    <label for="segundaOpcao" class="option-label" id="labelOpcaoDois"></label>
+                </span>
+                <span>
+                    <input type="radio" id="terceiraOpcao" name="option" class="radio-option" value="alternativaC" />
+                    <label for="terceiraOpcao" class="option-label" id="labelOpcaoTres"></label>
+                </span>
+                <span>
+                    <input type="radio" id="quartaOpcao" name="option" class="radio-option" value="alternativaD" />
+                    <label for="quartaOpcao" class="option-label" id="labelOpcaoQuatro"></label>
+                </span>
+            </div>
+
+            <div id="botoes" class="flex-colunar padding-8">
+                <button onclick="submeter()" id="btnSubmeter" class="botao_entrar">Submeter resposta</button>
+                <button onclick="avancar()" id="btnProx" class="botao_entrar" disabled>Avançar para próxima
+                    questão</button>
+                <button onclick="tentarNovamente()" id="btnTentarNovamente" class="botao_apagar" disabled>Tentar
+                    novamente</button>
+            </div>
+        </div>
+    </div>
     </div>
 
     <script>
 
         function voltar() {
 
-        window.location.assign("index.html")
-    }
+            window.location.assign("index.html")
+        }
 
         const listaDeQuestoes = [
             {
@@ -121,6 +124,14 @@
                 alternativaC: "Sky, Patrulha Canina",
                 alternativaD: "Princesa Jujuba, da Hora da Aventura",
                 alternativaCorreta: "alternativaC"
+            },
+            {
+                pergunta: "Qual a cor favorita da Ju?",
+                alternativaA: "Lilás",
+                alternativaB: "Azul Claro",
+                alternativaC: "Laranja",
+                alternativaD: "Rosa",
+                alternativaCorreta: "alternativaD"
             }
 
         ];
@@ -271,20 +282,19 @@
                 classComCoresParaMensagemFinal = "text-success-with-bg";
             }
 
+
             textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos) * 100) + "% das questões.";
 
-            document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal;
-            document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal);
-            document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal;
-
-            // Esconde os elementos do jogo e exibe a pontuação final
-            document.getElementById('jogo').style.display = "none";
-            document.getElementById('pontuacaoDuranteJogo').style.display = "none";
-            document.getElementById('pontuacaoFinalJogo').style.display = "flex";
-
-            document.getElementById('btnProx').disabled = true;
-            document.getElementById('btnSubmeter').disabled = true;
+            document.getElementById('jogo').style.display = "flex";  // Não esconda o container inteiro
+            document.getElementById('infoQuestao').style.display = "none";
+            document.getElementById('perguntaDaQuestaoAtual').style.display = "none";
+            document.getElementById('infoAlternativas').style.display = "none";
+            document.getElementById('opcoes').style.display = "none";
+            document.getElementById('btnSubmeter').style.display = "none";
+            document.getElementById('btnProx').style.display = "none";
             document.getElementById('btnTentarNovamente').disabled = false;
+            document.getElementById('btnTentarNovamente').style.display = "inline-block";
+
         }
     </script>
 </body>
