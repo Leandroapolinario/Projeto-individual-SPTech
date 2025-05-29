@@ -1,0 +1,340 @@
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Exo+2:wght@400;600&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Exo 2', sans-serif; /* Prioriza Exo 2 para o texto geral */
+    background-color: #FF4D9D;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que o body ocupe a altura total */
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ocupa a altura total da viewport */
+}
+
+.top-bar {
+    background-color: #12121c;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.logo {
+    font-family: 'Gochi Hand', cursive; /* Mantém Gochi Hand para o logo, se desejar */
+    font-size: 24px;
+    color: #C90A73; /* Cor de destaque para o logo */
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    background-color: #FF4D9D;
+}
+
+.left-panel,
+.map-panel,
+.right-panel {
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.left-panel {
+    width: 25%;
+    background-color: #ccc;
+    display: flex; /* Adicionado para organizar os botões */
+    flex-direction: column; /* Adicionado para organizar os botões */
+    gap: 15px; /* Espaçamento entre os botões e outros elementos */
+}
+
+.left-panel h2 {
+    margin-top: 0;
+    margin-bottom: 20px; /* Espaçamento abaixo do título */
+    color: white;
+}
+
+/* Novo estilo para a div que vai conter os botões dos aquários */
+.btn-aquario-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espaçamento entre os botões individuais */
+    margin-bottom: 20px; /* Espaçamento antes de outros elementos no painel */
+}
+
+.btn-chart {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Exo 2', sans-serif;
+    text-align: left; /* Alinha o texto à esquerda */
+}
+
+.btn-pink { /* Estilo para o botão do aquário selecionado */
+    background-color: #C90A73; /* Laranja de destaque */
+    color: white;
+}
+
+.btn-white { /* Estilo para os botões dos aquários não selecionados */
+    background-color: #FF4D9D; /* Fundo mais claro */
+    color: #ccc;
+    border: 1px solid #333d4b; /* Borda sutil */
+}
+
+.btn-chart:hover {
+    filter: brightness(1.2); /* Efeito de brilho ao passar o mouse */
+}
+
+.circle-stats {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #C90A73;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    margin: 20px auto; /* Centraliza o círculo */
+    color: white;
+    font-weight: 600;
+}
+
+.stats p {
+    margin: 10px 0;
+    color: #ccc;
+}
+
+.stats strong {
+    color: white;
+}
+
+.map-panel {
+    width: 50%;
+    background-color: #FF4D9D;
+    display: flex;
+    flex-direction: column; /* Permite organizar título e gráfico */
+    align-items: center;
+    justify-content: flex-start; /* Alinha o conteúdo ao topo */
+    gap: 20px; /* Espaçamento entre o título e o gráfico */
+}
+
+.tituloGraficos {
+    margin-top: 10px; /* Ajusta a margem superior do título do gráfico */
+    color: white;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.tituloGraficos span {
+    font-weight: 600;
+}
+
+.tituloGraficos span[style*="color: #e6005a"] {
+    color: #e6005a !important; /* Aplica a cor rosa choque para o destaque */
+}
+
+.graph {
+    width: 100%;
+    max-width: 700px; /* Limite máximo para o gráfico */
+    height: 350px; /* Altura fixa para o gráfico */
+    background-color: #FF4D9D;
+    border-radius: 12px;
+    padding: 15px; /* Padding interno para o canvas */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.label-captura {
+    margin-top: 15px;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.label-captura p {
+    color: #C90A73; /* Cor para aviso de captura */
+}
+
+.map-placeholder { /* Usado para o exemplo de gráfico vazio */
+    width: 100%;
+    height: 300px;
+    background-color: #1f2836;
+    border-radius: 12px;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.right-panel {
+    width: 25%;
+    background-color: #12121c;
+}
+
+.right-panel h3 {
+    margin-top: 0;
+    color: white;
+}
+
+.right-panel ul {
+    padding-left: 20px;
+    list-style: none; /* Remove o estilo de lista padrão */
+}
+
+.right-panel li {
+    margin: 12px 0;
+    color: #ccc;
+}
+
+.right-panel li::before { /* Adiciona um ícone customizado antes de cada item da lista */
+    content: "• "; /* Pode ser um ícone ou emoji */
+    color: #C90A73; /* Cor do marcador */
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+
+.right-panel button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #C90A73;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.right-panel button:hover {
+    background-color: #C90A73; /* Laranja um pouco mais escuro no hover */
+}
+
+/* Classes de display para JavaScript */
+.display-none {
+    display: none;
+}
+
+.display-block {
+    display: block;
+}
+
+/* Media Queries para responsividade */
+@media (max-width: 1200px) {
+    .left-panel, .right-panel {
+        width: 30%;
+    }
+    .map-panel {
+        width: 40%;
+    }
+    .top-bar {
+        padding: 15px 20px;
+        font-size: 16px;
+    }
+    .logo {
+        font-size: 20px;
+    }
+    .circle-stats {
+        width: 120px;
+        height: 120px;
+        font-size: 30px;
+    }
+    .btn-chart {
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+    .tituloGraficos {
+        font-size: 1.3em;
+    }
+    .graph {
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+        padding: 15px; /* Adiciona padding ao conteúdo para mobile */
+    }
+    .left-panel, .map-panel, .right-panel {
+        width: 100%;
+        padding: 20px;
+        margin-bottom: 15px; /* Espaçamento entre os painéis */
+        border-radius: 12px; /* Adiciona borda arredondada aos painéis */
+    }
+    .left-panel {
+        order: 1; /* Ordem dos painéis no mobile */
+    }
+    .map-panel {
+        order: 2;
+    }
+    .right-panel {
+        order: 3;
+    }
+    .top-bar {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 10px;
+    }
+    .btn-aquario-container {
+        flex-direction: row; /* Botões lado a lado em mobile */
+        flex-wrap: wrap; /* Quebra de linha se necessário */
+        justify-content: center;
+    }
+    .btn-chart {
+        width: auto; /* Deixa a largura automática */
+        flex-grow: 1; /* Permite que cresçam */
+        text-align: center;
+    }
+    .right-panel button {
+        width: 100%; /* Botão de voltar ao perfil ocupa a largura total */
+    }
+    .circle-stats {
+        width: 100px;
+        height: 100px;
+        font-size: 24px;
+    }
+    .graph {
+        height: 250px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-bar {
+        font-size: 14px;
+    }
+    .logo {
+        font-size: 18px;
+    }
+    .left-panel, .map-panel, .right-panel {
+        padding: 15px;
+        margin-bottom: 10px;
+    }
+    .btn-chart {
+        font-size: 0.85em;
+        padding: 6px 10px;
+    }
+    .tituloGraficos {
+        font-size: 1.1em;
+    }
+    .label-captura {
+        font-size: 0.8em;
+    }
+    .right-panel li {
+        font-size: 0.9em;
+    }
+}

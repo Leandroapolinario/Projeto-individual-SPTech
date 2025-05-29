@@ -7,61 +7,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 
-    <link rel="stylesheet" href="./../css/dashboards.css">
+    <link rel="stylesheet" href="./../public/styles/dashboard.css">
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
 
-<body onload="atualizarFeed()">
+<body onload="exibirAquariosDoUsuario()">
     <div class="dashboard">
 
-        <!-- Topo -->
         <header class="top-bar">
-            <div class="logo">🏃 Rundoɹd</div>
-            <div class="date">20 de Maio</div>
-            <div class="profile">Johnny ⬇</div>
+            <div class="logo">Dashjuba</div>
+            <div class="date">data teste</div>
+            <div class="profile"><span id="b_usuario">@</span> <i class="fa-solid fa-caret-down"></i></div>
         </header>
 
-        <!-- Conteúdo Principal -->
         <main class="content">
-            <!-- Painel Esquerdo -->
             <section class="left-panel">
-                <h2>Corrida da Manhã</h2>
-                <div class="circle-stats">10cima</div>
+                <h2>como fui</h2>
+                <div id="btnAquario" class="btn-aquario-container">
+                    </div>
+                <div class="circle-stats">titulo</div>
                 <div class="stats">
-                    <p>Distância: <strong>15.3 km</strong></p>
-                    <p>Duração: <strong>1:24:37</strong></p>
-                    <p>Ritmo: <strong>5:25 min/km</strong></p>
+                    <p>Distância: <strong>...</strong></p>
+                    <p>Duração: <strong>...</strong></p>
+                    <p>Ritmo: <strong>...</strong></p>
                 </div>
             </section>
 
-            <!-- Painel Mapa -->
-            <section class="map-panel">
-                <div class="map-placeholder">[ Grafico com 2 y = Tempo e distancia x = data ]</div>
-                <!-- <div class="map-placeholder">[ MAPA ]</div> -->
+            <section class="map-panel" id="graficos">
+                <div class="map-placeholder" id="placeholder-inicial">
+                    Selecione um treino para ver o gráfico.
+                </div>
             </section>
 
-            <!-- Painel Direito / Feed -->
             <section class="right-panel">
                 <h3>Feed</h3>
                 <ul>
-                    <li>✅ Atingiu 15k!</li>
-                    <li>🏆 Posição do ranking nesta distancia!</li>
-                    <li>🏃 [1 no pace geral !]</li>
-                    <li>🔥 Total da semana: 33km</li>
-                    <li>🔥 [Top 3 do Quiz]</li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
                 </ul>
-                <button onclick="window.location='../perfil.html'">Voltar ao perfil</button>
+                <button onclick="window.location='../public/tela-quiz.html'">Voltar ao perfil</button>
             </section>
         </main>
     </div>
 
-<script src="assets/js/dashboard.js"></script>
-
+    <script src="assets/js/dashboard.js"></script>
 </body>
+
 </html>
