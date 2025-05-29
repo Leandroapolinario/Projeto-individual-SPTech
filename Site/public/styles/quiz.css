@@ -1,3 +1,5 @@
+/* quiz.css */
+
 /* --- Importações e reset básicos --- */
 @import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
 
@@ -36,7 +38,37 @@ body {
     text-decoration: none;
     font-size: 0.8em; /* Fonte menor para o botão voltar */
     padding: 3px 8px; /* Padding menor */
+    color: #C90A73;
+    position: relative; /* Necessário para o efeito ::before e ::after */
+    display: inline-block;
 }
+
+.botao_voltar a::before,
+.botao_voltar a::after {
+    content: '✨';
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: scale(0.5);
+    font-size: 18px;
+    color: gold;
+}
+
+.botao_voltar a::before {
+    left: -20px;
+}
+
+.botao_voltar a::after {
+    right: -20px;
+}
+
+.botao_voltar a:hover::before,
+.botao_voltar a:hover::after {
+    opacity: 1;
+    transform: scale(1.3) rotate(10deg);
+}
+
 
 .container {
     width: 98%; /* Ocupa quase toda a largura para maximizar o espaço */
@@ -87,6 +119,83 @@ body {
     display: flex; /* Classe para mostrar os elementos quando o quiz iniciar */
 }
 
+/* Estilos básicos para todos os botões */
+.botao_entrar,
+.botao_apagar {
+    font-family: "Gochi Hand", cursive;
+    padding: 12px 20px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    position: relative; /* ESSENCIAL para posicionar os pseudo-elementos */
+    display: inline-block;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    font-weight: bold;
+    z-index: 1; /* Garante que o texto esteja acima do pseudo-elemento */
+}
+
+/* Estilo específico para "Iniciar Quiz" e "Submeter/Avançar" */
+.botao_entrar {
+    background-color: #C90A73; /* rosa */
+    color: black;
+    box-shadow: 0 4px 15px rgba(201, 10, 115, 0.6); /* sombra rosa */
+}
+
+.botao_entrar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(201, 10, 115, 0.8);
+}
+
+/* Estilo específico para "Tentar Novamente" */
+.botao_apagar {
+    background-color: #FF4D9D; /* Um rosa ligeiramente diferente para contraste */
+    color: white;
+    border: 1px solid #FF4D9D;
+    box-shadow: 0 4px 15px rgba(255, 77, 157, 0.6); /* sombra rosa para apagar */
+}
+
+.botao_apagar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 77, 157, 0.8);
+}
+
+/* Novas regras para as estrelinhas dos botões entrar e apagar */
+.botao_entrar::before,
+.botao_entrar::after,
+.botao_apagar::before,
+.botao_apagar::after {
+    content: '✨'; /* Adiciona as estrelinhas */
+    opacity: 0; /* Esconde elas inicialmente */
+    position: absolute;
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%) scale(0.5); /* Inicia pequeno e centralizado */
+    font-size: 18px;
+    color: gold; /* Cor das estrelinhas */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Transição suave */
+}
+
+/* Posição das estrelinhas */
+.botao_entrar::before,
+.botao_apagar::before {
+    left: -20px; /* Estrelinha da esquerda */
+}
+
+.botao_entrar::after,
+.botao_apagar::after {
+    right: -20px; /* Estrelinha da direita */
+}
+
+/* Efeito de hover: estrelinhas aparecem e crescem/giram */
+.botao_entrar:hover::before,
+.botao_entrar:hover::after,
+.botao_apagar:hover::before,
+.botao_apagar:hover::after {
+    opacity: 1; /* Estrelinhas ficam visíveis */
+    transform: translateY(-50%) scale(1.3) rotate(10deg); /* Crescem e giram */
+}
+
+
 #btnIniciarQuiz {
     width: 70%; /* Ajusta a largura do botão iniciar */
     padding: 12px 20px; /* Padding ajustado */
@@ -96,7 +205,7 @@ body {
     top: 50%; /* Centraliza verticalmente */
     left: 50%; /* Centraliza horizontalmente */
     transform: translate(-50%, -50%); /* Ajusta para centralizar exatamente */
-    z-index: 1;
+    z-index: 1; /* Garante que esteja acima de outros elementos se houver sobreposição */
 }
 
 
@@ -268,17 +377,4 @@ body {
     .final-message {
         font-size: 0.8em;
     }
-}
-
-
-
-#btnTentarNovamente {
-    background-color: #FF4D9D;
-    color: white;
-    border: 1px solid #FF4D9D;
-    
-    padding: 8px 12px; 
-    font-size: 0.85em; 
-    width: auto; 
-    flex-grow: 1; 
 }
