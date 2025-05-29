@@ -17,8 +17,8 @@ CREATE TABLE Quiz (
 
 CREATE TABLE pontuacao (
 	idPontuacao INT,
-    pkUsuario INT,
-    pkQuiz INT,
+    fkUsuario INT,
+    fkQuiz INT,
     pontos INT,
     PRIMARY KEY (pkUsuario, pkQuiz, idPontuacao),
     FOREIGN KEY (pkUsuario) REFERENCES Usuario(idUsuario),
@@ -26,15 +26,15 @@ CREATE TABLE pontuacao (
 );
 
 CREATE TABLE pergunta (
-    idPergunta INT PRIMARY KEY,
-    pkQuiz INT,
+    idPergunta INT PRIMARY KEY auto_increment,
+    FkQuiz INT,
     questao varchar (45),
     FOREIGN KEY (pkQuiz) REFERENCES Quiz(idQuiz)
  );
  
  CREATE TABLE alternativa (
-    idAlternativa INT PRIMARY KEY,
-    pkPergunta INT,
+    idAlternativa INT PRIMARY KEY auto_increment,
+    fkPergunta INT,
     opcao varchar (45),
     FOREIGN KEY (pkPergunta) REFERENCES Pergunta(idPergunta)
  );

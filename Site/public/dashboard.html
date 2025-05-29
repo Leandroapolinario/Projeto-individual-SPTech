@@ -1,23 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exemplo de como Plotar Gráficos</title>
-  <!-- Incluindo a biblioteca Chart.js para desenhar gráficos -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body onload="obterDados()"> <!-- Chamando a função obterDados ao carregar a página -->
-  
-<!-- Título para o gráfico de linhas -->
-Gráfico de linhas
-<div>
-  <!-- Elemento canvas onde o gráfico de linha será desenhado -->
-  <canvas id="linha"></canvas>
-  <!-- Elemento canvas onde o gráfico de barra será desenhado -->
-  <canvas id="barra"></canvas>
-</div>
 
+<head>
+    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="./../css/dashboards.css">
+    <script src="../js/sessao.js"></script>
+    <script src="./../js/alerta.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+</head>
+
+<body onload="atualizarFeed()">
+    <div class="dashboard">
+
+        <!-- Topo -->
+        <header class="top-bar">
+            <div class="logo">🏃 Rundoɹd</div>
+            <div class="date">20 de Maio</div>
+            <div class="profile">Johnny ⬇</div>
+        </header>
+
+        <!-- Conteúdo Principal -->
+        <main class="content">
+            <!-- Painel Esquerdo -->
+            <section class="left-panel">
+                <h2>Corrida da Manhã</h2>
+                <div class="circle-stats">10cima</div>
+                <div class="stats">
+                    <p>Distância: <strong>15.3 km</strong></p>
+                    <p>Duração: <strong>1:24:37</strong></p>
+                    <p>Ritmo: <strong>5:25 min/km</strong></p>
+                </div>
+            </section>
+
+            <!-- Painel Mapa -->
+            <section class="map-panel">
+                <div class="map-placeholder">[ Grafico com 2 y = Tempo e distancia x = data ]</div>
+                <!-- <div class="map-placeholder">[ MAPA ]</div> -->
+            </section>
+
+            <!-- Painel Direito / Feed -->
+            <section class="right-panel">
+                <h3>Feed</h3>
+                <ul>
+                    <li>✅ Atingiu 15k!</li>
+                    <li>🏆 Posição do ranking nesta distancia!</li>
+                    <li>🏃 [1 no pace geral !]</li>
+                    <li>🔥 Total da semana: 33km</li>
+                    <li>🔥 [Top 3 do Quiz]</li>
+                </ul>
+                <button onclick="window.location='../perfil.html'">Voltar ao perfil</button>
+            </section>
+        </main>
+    </div>
 
 <script src="assets/js/dashboard.js"></script>
 
