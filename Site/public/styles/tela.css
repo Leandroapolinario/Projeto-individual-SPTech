@@ -17,13 +17,6 @@ header {
   background: #F3C6DF;
 }
 
-.botao_apagar {
-  background: none;      
-  border: none;          
-  padding: 0;            
-  cursor: pointer;       
-}
-
 .titulo,
 .txt_campo {
   color: #C90A73;
@@ -127,6 +120,7 @@ header {
   transition: all 0.3s ease;
   overflow: hidden;
     margin-top: 20px;
+  margin-left: 64px;
 }
 
 /* Estrelinhas ocultas inicialmente */
