@@ -185,33 +185,45 @@
             }
         }
 
-        function finalizarJogo() {
-            let textoParaMensagemFinal = null;
-            let classComCoresParaMensagemFinal = null;
-            const porcentagemFinalDeAcertos = pontuacaoFinal / quantidadeDeQuestoes;
+      // ... (código anterior)
 
-            if (porcentagemFinalDeAcertos <= 0.3) {
-                textoParaMensagemFinal = "Parece que você não estudou...";
-                classComCoresParaMensagemFinal = "text-danger-with-bg";
-            } else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.9) {
-                textoParaMensagemFinal = "Pode melhorar na próxima, hein!";
-                classComCoresParaMensagemFinal = "text-warning-with-bg";
-            } else if (porcentagemFinalDeAcertos >= 0.9) {
-                textoParaMensagemFinal = "Uau, parabéns!";
-                classComCoresParaMensagemFinal = "text-success-with-bg";
-            }
+function finalizarJogo() {
+    let textoParaMensagemFinal = null;
+    let classComCoresParaMensagemFinal = null;
+    const porcentagemFinalDeAcertos = pontuacaoFinal / quantidadeDeQuestoes;
 
+    if (porcentagemFinalDeAcertos <= 0.3) {
+        textoParaMensagemFinal = "Parece que você não estudou...";
+        classComCoresParaMensagemFinal = "text-danger-with-bg";
+    } else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.9) {
+        textoParaMensagemFinal = "Pode melhorar na próxima, hein!";
+        classComCoresParaMensagemFinal = "text-warning-with-bg";
+    } else if (porcentagemFinalDeAcertos >= 0.9) {
+        textoParaMensagemFinal = "Uau, parabéns!";
+        classComCoresParaMensagemFinal = "text-success-with-bg";
+    }
 
-            textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos) * 100) + "% das questões.";
+    // Adiciona a pontuação final ao texto da mensagem
+    textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos) * 100) + "% das questões.";
 
-            document.getElementById('jogo').style.display = "flex";  // Não esconda o container inteiro
-            document.getElementById('infoQuestao').style.display = "none";
-            document.getElementById('perguntaDaQuestaoAtual').style.display = "none";
-            document.getElementById('infoAlternativas').style.display = "none";
-            document.getElementById('opcoes').style.display = "none";
-            document.getElementById('btnSubmeter').style.display = "none";
-            document.getElementById('btnProx').style.display = "none";
-            document.getElementById('btnTentarNovamente').disabled = false;
-            document.getElementById('btnTentarNovamente').style.display = "inline-block";
+    // Esconde os elementos do jogo e pontuação durante o jogo
+    document.getElementById('infoQuestao').style.display = "none";
+    document.getElementById('perguntaDaQuestaoAtual').style.display = "none";
+    document.getElementById('infoAlternativas').style.display = "none";
+    document.getElementById('opcoes').style.display = "none";
+    document.getElementById('btnSubmeter').style.display = "none";
+    document.getElementById('btnProx').style.display = "none";
 
-        }
+    // Mostra a área de pontuação final
+    document.getElementById('pontuacaoFinalJogo').style.display = "flex"; // Mostra a div de pontuação final
+    document.getElementById('pontuacaoDuranteJogo').style.display = "none"; // Esconde a div de pontuação durante o jogo
+
+    // Preenche a pontuação final e a mensagem
+    document.getElementById('spanPontuacaoFinal').innerHTML = `${pontuacaoFinal}/${quantidadeDeQuestoes}`;
+    document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal;
+    document.getElementById('msgFinal').className = `final-message ${classComCoresParaMensagemFinal}`; // Adiciona a classe de cor
+
+    // Habilita e mostra o botão "Tentar novamente"
+    document.getElementById('btnTentarNovamente').disabled = false;
+    document.getElementById('btnTentarNovamente').style.display = "inline-block"; // Garante que ele apareça
+}

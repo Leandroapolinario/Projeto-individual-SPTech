@@ -105,7 +105,7 @@ header {
   transform: scale(1.3) rotate(10deg);
 }
 
-.botao_entrar {
+.botao_entrar_cadastro {
   background-color: #C90A73; /* rosa */
   color: black;
   font-size: 28px;
@@ -119,13 +119,41 @@ header {
   display: inline-block;
   transition: all 0.3s ease;
   overflow: hidden;
-    margin-top: 20px;
+  margin-top: 20px;
   margin-left: 64px;
 }
 
+.botao_entrar_login {
+  background-color: #C90A73; /* rosa */
+  color: black;
+  font-size: 28px;
+  font-family: "Gochi Hand", cursive;
+  padding: 12px 30px;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0 4px 15px rgba(201, 10, 115, 0.6); /* sombra rosa */
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
 /* Estrelinhas ocultas inicialmente */
-.botao_entrar::before,
-.botao_entrar::after {
+.botao_entrar_cadastro::before,
+.botao_entrar_cadastro::after {
+  content: '✨';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.botao_entrar_login::before,
+.botao_entrar_login::after {
   content: '✨';
   position: absolute;
   top: 50%;
@@ -136,22 +164,42 @@ header {
 }
 
 /* Dentro do botão */
-.botao_entrar::before {
+.botao_entrar_cadastro::before {
   left: 10px;
 }
 
-.botao_entrar::after {
+.botao_entrar_cadastro::after {
+  right: 10px;
+}
+
+.botao_entrar_login::before {
+  left: 10px;
+}
+
+.botao_entrar_login::after {
   right: 10px;
 }
 
 /* Ao passar o mouse */
-.botao_entrar:hover {
+.botao_entrar_cadastro:hover {
   background-color: black;
   color: #C90A73;
 }
 
-.botao_entrar:hover::before,
-.botao_entrar:hover::after {
+.botao_entrar_cadastro:hover::before,
+.botao_entrar_cadastro:hover::after {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.2) rotate(10deg);
+  color: gold;
+}
+
+.botao_entrar_login:hover {
+  background-color: black;
+  color: #C90A73;
+}
+
+.botao_entrar_login:hover::before,
+.botao_entrar_login:hover::after {
   opacity: 1;
   transform: translateY(-50%) scale(1.2) rotate(10deg);
   color: gold;

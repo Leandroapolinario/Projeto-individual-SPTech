@@ -269,3 +269,16 @@ body {
         font-size: 0.8em;
     }
 }
+
+
+
+#btnTentarNovamente {
+    background-color: #FF4D9D;
+    color: white;
+    border: 1px solid #FF4D9D;
+    
+    padding: 8px 12px; 
+    font-size: 0.85em; 
+    width: auto; 
+    flex-grow: 1; 
+}
