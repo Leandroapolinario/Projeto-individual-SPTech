@@ -16,6 +16,56 @@ body {
     height: 100vh; /* Ocupa a altura total da viewport */
 }
 
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-evenly;
+}
+
+.top-bar {
+    background-color: #12121c;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between; /* Mantém o espaçamento entre outros elementos, se houver */
+    align-items: center;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.logo {
+    font-family: 'Gochi Hand', cursive; /* Mantém Gochi Hand para o logo, se desejar */
+    font-size: 40px; /* Mantido em 40px conforme seu último código */
+    color: #C90A73; /* Cor de destaque para o logo */
+    margin: 0 auto; /* ISSO VAI CENTRALIZAR O LOGO HORIZONTALMENTE */
+}
+
+/* NOVOS ESTILOS PARA O BOTÃO VOLTAR */
+body {
+    margin: 0;
+    font-family: 'Exo 2', sans-serif;
+    background-color: #FF4D9D;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-evenly;
+}
+
 .top-bar {
     background-color: #12121c;
     padding: 20px 40px;
@@ -27,10 +77,80 @@ body {
 }
 
 .logo {
-    font-family: 'Gochi Hand', cursive; /* Mantém Gochi Hand para o logo, se desejar */
-    font-size: 24px;
-    color: #C90A73; /* Cor de destaque para o logo */
+    font-family: 'Gochi Hand', cursive;
+    font-size: 40px;
+    color: #C90A73;
+    margin: 0 auto;
 }
+
+/*
+    Ajustes nos estilos do .botao_voltar
+    Agora, o próprio <a> dentro do botão terá os estilos visuais de botão.
+    O <button> em si terá seus estilos resetados para não interferir.
+*/
+.botao_voltar {
+    background: none; /* Remove o fundo padrão do botão */
+    border: none; /* Remove a borda padrão do botão */
+    outline: none; /* Remove o contorno de foco padrão do botão */
+    padding: 0; /* Remove o padding padrão do botão */
+    cursor: pointer; /* Mantém o cursor de ponteiro sobre a área do botão */
+    font-size: 1em; /* Garante que a fonte do botão não interfira no link */
+    font-family: 'Exo 2', sans-serif;
+    /* Essas propriedades garantem que o botão não ocupe espaço extra e se alinhe corretamente */
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.botao_voltar a {
+    /* ESTES ESTILOS AGORA DÃO A APARÊNCIA DE BOTÃO AO LINK "VOLTAR" */
+    text-decoration: none;
+    font-size: 1.4em; /* Fonte menor para o botão voltar */
+    padding: 3px 8px; /* Padding menor */
+    color: #C90A73; /* Cor do texto do link (rosa) */
+    background-color: transparent; /* Fundo transparente inicialmente */
+    border: 1px solid #C90A73; /* Adiciona uma borda fina na cor do texto para definir o "botão" */
+    border-radius: 8px; /* Borda arredondada para o "botão" */
+    outline: none; /* Remove o contorno de foco do link para uma estética mais limpa */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Transição suave para efeitos de hover */
+
+    position: relative; /* Necessário para posicionar os pseudo-elementos ::before e ::after */
+    display: inline-block; /* Permite aplicar padding e bordas corretamente */
+}
+
+.botao_voltar a:hover {
+    background-color: #C90A73; /* Fundo rosa no hover */
+    color: white; /* Texto branco no hover */
+    border-color: #C90A73; /* Borda rosa no hover */
+}
+
+.botao_voltar a::before,
+.botao_voltar a::after {
+    content: '✨'; /* Seu emoji de brilho */
+    opacity: 0; /* Esconde o brilho inicialmente */
+    position: absolute;
+    top: 0; /* Alinha o brilho ao topo do link */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Transição para o efeito do brilho */
+    transform: scale(0.5); /* Começa menor */
+    font-size: 33px; /* Tamanho do brilho */
+    color: gold; /* Cor do brilho */
+}
+
+.botao_voltar a::before {
+    left: -20px; /* Posiciona o brilho à esquerda do link */
+}
+
+.botao_voltar a::after {
+    right: -20px; /* Posiciona o brilho à direita do link */
+}
+
+.botao_voltar a:hover::before,
+.botao_voltar a:hover::after {
+    opacity: 1; /* Torna o brilho visível no hover */
+    transform: scale(1.3) rotate(10deg); /* Faz o brilho crescer e girar no hover */
+}
+
+/* FIM DOS NOVOS ESTILOS */
+
 
 .content {
     flex: 1;
@@ -43,6 +163,10 @@ body {
 .right-panel {
     padding: 30px;
     box-sizing: border-box;
+}
+
+.right-panel{
+    border-radius: 20px;
 }
 
 .left-panel {
