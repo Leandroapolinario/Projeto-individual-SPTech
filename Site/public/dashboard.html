@@ -2,60 +2,98 @@
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+  <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
 
-    <link rel="stylesheet" href="./../public/styles/dashboard.css">
-    <script src="../js/sessao.js"></script>
-    <script src="./../js/alerta.js"></script>
+  <link rel="stylesheet" href="./../public/styles/dashboard.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
 
 <body onload="exibirAquariosDoUsuario()">
-    <div class="dashboard">
-        
-        <header class="top-bar">
-            <button class="botao_voltar">
-                <a href="index.html">Voltar</a>
-            </button>
-            <div class="logo">Dashjuba</div>
-            <div class="profile">
-                <span id="b_usuario">NOME USUÁRIO</span> <i class="fa-solid fa-caret-down"></i>
-            </div>
-        </header>
+  <div class="dashboard">
+
+    <header class="top-bar">
+      <button class="botao_voltar">
+        <a href="index.html">Voltar</a>
+      </button>
+      <div class="logo">Dashjuba</div>
+      <div class="profile">
+        <span id="b_usuario">NOME USUÁRIO</span> <i class="fa-solid fa-caret-down"></i>
+      </div>
+    </header>
 
 
-        </section>
-        <div class="container">
-            <section class="map-panel" id="graficos">
-                <div class="map-placeholder" id="placeholder-inicial">
-                    gráfico.
-                </div>
-            </section>
-
-            <section class="right-panel">
-                <h3>🦄Ranking🦄</h3>
-                <ul>
-                    <li>Rafael</li>
-                    <li>Léo</li>
-                    <li>Marina</li>
-
-                </ul>
-                <button onclick="window.location='../public/tela-quiz.html'">Voltar ao perfil</button>
+    </section>
+    <div class="container">
+      <section class="map-panel" id="graficos">
+        <div class="map-placeholder" id="placeholder-inicial">
+          <canvas id="myChart" style="position:relative; height: 40vh; width: 40vw"></canvas>
         </div>
-        </section>
+      </section>
 
-        <section>
+      <section class="right-panel">
+        <h3>🦄Ranking🦄</h3>
+        <ul>
+          <li>Rafael</li>
+          <li>Léo</li>
+          <li>Marina</li>
 
-        </section>
-        </main>
+        </ul>
+        <button onclick="window.location='../public/tela-quiz.html'">Voltar ao perfil</button>
     </div>
+    </section>
 
-    <script src="assets/js/dashboard.js"></script>
+    <section>
+
+    </section>
+    </main>
+  </div>
+
+  <script src="assets/js/dashboard.js"></script>
 </body>
 
 </html>
+
+<script>
+
+  const idUsuario = sessionStorage.ID_USUARIO
+
+  const ctx = document.getElementById('myChart');
+
+
+  function dashboard() {
+    fetch(`/dash/buscarPontuacao/${idUsuario}`)
+      .then(res => res.json())
+      .then(pontuacao => {
+        console.log(pontuacao[0])
+      })
+
+  }
+
+
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
+      datasets: [{
+        label: 'Acertos por Quizes',
+        data: [20, 30 + 10, 28 + 10, 25 + 10, 22 + 10, 23 + 10],
+        borderWidth: 2,
+        borderColor: `pink`,
+        backgroundColor: `purple`,
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>

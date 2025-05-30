@@ -16,6 +16,16 @@ function buscarPerguntas() {
     return database.executar(instrucaoSQL);
 }
 
+function acertos(idUsuario, pontuacao) {
+    const instrucaoSQL = `
+    INSERT INTO pontuacao (fkUsuario, fkQuiz, pontos) VALUES
+    (${idUsuario}, 1, ${pontuacao})
+    `;
+    console.log("Executando a instrução SQL:\n" + instrucaoSQL);
+    return database.executar(instrucaoSQL);
+}
+
 module.exports = {
-    buscarPerguntas
+    buscarPerguntas,
+    acertos
 }
