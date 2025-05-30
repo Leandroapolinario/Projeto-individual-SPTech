@@ -80,7 +80,7 @@ body {
     font-family: 'Gochi Hand', cursive;
     font-size: 40px;
     color: #C90A73;
-    margin: 0 auto;
+    margin: 0 auto; 
 }
 
 /*
@@ -360,6 +360,19 @@ body {
     width: 25%;
     background-color: #12121c;
 }
+
+
+.blocos h3 {
+    margin-top: 0;
+    color: white;
+}
+
+.blocos li {
+    margin: 12px 0;
+    color: #ccc;
+}
+
+
 
 /* Media Queries para responsividade */
 @media (max-width: 1200px) {
