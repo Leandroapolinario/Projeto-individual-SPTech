@@ -372,6 +372,35 @@ body {
     color: #ccc;
 }
 
+.bloco1 {
+
+    width: 200px;
+    height: 120px;
+    margin-right: 90px;
+    background-color: #12121c;
+
+
+}
+
+.bloco2 {
+
+    width: 200px;
+    height: 120px;
+    margin-right: 20px;
+    background-color: #12121c;
+
+   
+}
+
+.bloco3 {
+
+    width: 200px;
+    height: 120px;
+    margin-right: 10px;
+    background-color: #12121c;
+
+   
+}
 
 
 /* Media Queries para responsividade */
