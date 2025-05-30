@@ -6,63 +6,13 @@ function voltar() {
     window.location.assign("index.html")
 }
 
-const listaDeQuestoes = [
-    {
-        pergunta: "O mês que a Juju nasceu?",
-        alternativaA: "Janeiro",
-        alternativaB: "Dezembro",
-        alternativaC: "Abril",
-        alternativaD: "Junho",
-        alternativaCorreta: "alternativaC"
-    },
-    {
-        pergunta: "A Júlia é de que signo?",
-        alternativaA: "Áries",
-        alternativaB: "Peixes",
-        alternativaC: "Escorpião",
-        alternativaD: "Touro",
-        alternativaCorreta: "alternativaD"
-    },
-    {
-        pergunta: "Qual o dia que a Júlia e o tio Lê se conheceram pessoalmente?",
-        alternativaA: "31",
-        alternativaB: "22",
-        alternativaC: "18",
-        alternativaD: "26",
-        alternativaCorreta: "alternativaD"
-    },
-    {
-        pergunta: "Quantos anos a Júlia tem?",
-        alternativaA: "4 anos",
-        alternativaB: "5 anos",
-        alternativaC: "2 anos",
-        alternativaD: "3 anos",
-        alternativaCorreta: "alternativaA"
-    },
-    {
-        pergunta: "Qual a personagem que a Jujuba ama?",
-        alternativaA: "Kristoff, de Frozen",
-        alternativaB: "Simba, do Rei Leão",
-        alternativaC: "Sky, Patrulha Canina",
-        alternativaD: "Princesa Jujuba, da Hora da Aventura",
-        alternativaCorreta: "alternativaC"
-    },
-    {
-        pergunta: "Qual a cor favorita da Ju?",
-        alternativaA: "Lilás",
-        alternativaB: "Azul Claro",
-        alternativaC: "Laranja",
-        alternativaD: "Rosa",
-        alternativaCorreta: "alternativaD"
-    }
 
-];
 
 let numeroDaQuestaoAtual = 0;
 let pontuacaoFinal = 0;
 let certas = 0;
 let erradas = 0;
-const quantidadeDeQuestoes = listaDeQuestoes.length;
+
 
 function onloadEsconder() {
     document.getElementById('pontuacao').style.display = "none";
@@ -188,9 +138,6 @@ function desmarcarRadioButtons() {
     }
 }
 
-// ... (código anterior)
-
-
 
 function finalizarJogo() {
     let textoParaMensagemFinal = null;
@@ -260,6 +207,60 @@ function finalizarJogo() {
         .catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
         });
-
-
 }
+
+function sortearAlternativas(alternativas) {
+    for (var i = alternativas.length - 1; i > 0; i--) {
+        const sortear = Math.floor(Math.random() * (i + 1));
+        [alternativas[i], alternativas[sortear]] = [alternativas[sortear], alternativas[i]];
+    }
+    return alternativas;
+}
+
+var listaDeQuestoes = [];
+var quantidadeDeQuestoes = 0;
+
+window.onload = () => {
+    fetch('/quiz/perguntas')
+        .then(res => res.json())
+        .then(data => {
+            const perguntasAgrupadas = {};
+
+            data.forEach(item => {
+                if (!perguntasAgrupadas[item.idPergunta]) {
+                    perguntasAgrupadas[item.idPergunta] = {
+                        pergunta: item.pergunta,
+                        respostas: []
+                    };
+                }
+
+                perguntasAgrupadas[item.idPergunta].respostas.push({
+                    texto: item.opcao,
+                    correta: item.correta == 1
+                });
+            });
+
+            listaDeQuestoes = Object.values(perguntasAgrupadas).map(p => {
+                let alternativas = p.respostas;
+                alternativas = sortearAlternativas(alternativas);
+
+                return {
+                    pergunta: p.pergunta,
+                    alternativaA: alternativas[0]?.texto || '',
+                    alternativaB: alternativas[1]?.texto || '',
+                    alternativaC: alternativas[2]?.texto || '',
+                    alternativaD: alternativas[3]?.texto || '',
+                    alternativaCorreta:
+                    alternativas[0]?.correta ? "alternativaA" :
+                    alternativas[1]?.correta ? "alternativaB" :
+                    alternativas[2]?.correta ? "alternativaC" :
+                    alternativas[3]?.correta ? "alternativaD" : ""
+                };
+            });
+
+            quantidadeDeQuestoes = listaDeQuestoes.length;
+        })
+        .catch(err => console.error("Erro ao carregar perguntas:", err));
+};
+
+
