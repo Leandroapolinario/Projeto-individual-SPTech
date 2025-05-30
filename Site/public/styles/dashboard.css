@@ -356,6 +356,11 @@ body {
     display: block;
 }
 
+.blocos {
+    width: 25%;
+    background-color: #12121c;
+}
+
 /* Media Queries para responsividade */
 @media (max-width: 1200px) {
     .left-panel, .right-panel {
