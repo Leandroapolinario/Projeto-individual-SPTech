@@ -19,6 +19,7 @@ function onloadEsconder() {
     document.getElementById('jogo').style.display = "none";
     document.getElementById('pontuacaoFinalJogo').style.display = "none";
     document.getElementById('btnProx').style.display = "none";
+    document.getElementById('btnProx').classList.add("botao_invertido"); // Adiciona a classe invertida ao botão Avançar
     document.getElementById('btnTentarNovamente').style.display = "none";
     document.getElementById('btnDashboard').style.display = "none"; // Esconde o botão Dashboard
 }
@@ -37,6 +38,13 @@ function iniciarQuiz() {
     document.getElementById('btnSubmeter').disabled = false;
     document.getElementById('btnProx').disabled = true;
     document.getElementById('btnTentarNovamente').disabled = true;
+
+    // Assegura que o Submeter comece como "normal" e o Avançar como "invertido"
+    document.getElementById('btnSubmeter').classList.remove("botao_invertido"); // Garante a classe correta
+    document.getElementById('btnSubmeter').classList.add("botao_entrar");     // Adiciona a classe correta
+
+    document.getElementById('btnProx').classList.remove("botao_entrar");     // Garante a classe correta
+    document.getElementById('btnProx').classList.add("botao_invertido");    // Adiciona a classe correta
 
     document.getElementById('btnSubmeter').style.display = "inline-block";
     document.getElementById('btnProx').style.display = "none";
@@ -74,7 +82,7 @@ function submeter() {
         }
     }
 
-    if (!selectedOption) {
+  if (!selectedOption) {
         alert("Não há alternativas escolhidas. Escolha uma opção.");
     } else {
         document.getElementById('btnSubmeter').disabled = true;
@@ -82,9 +90,18 @@ function submeter() {
         habilitarAlternativas(false);
         checarResposta(selectedOption.value);
 
-        // LINHAS ADICIONADAS AQUI PARA A TRANSFORMAÇÃO DO BOTÃO:
-        document.getElementById('btnSubmeter').style.display = "none"; // Esconde o botão "Submeter resposta"
-        document.getElementById('btnProx').style.display = "inline-block"; // Mostra o botão "Avançar para próxima questão"
+        // Lógica de transformação do botão (display):
+        document.getElementById('btnSubmeter').style.display = "none";
+        document.getElementById('btnProx').style.display = "inline-block";
+        
+        // CORREÇÃO NAS LINHAS DE CLASSES:
+        // O btnSubmeter vai sumir, mas deve ter a classe normal para a próxima questão
+        document.getElementById('btnSubmeter').classList.remove("botao_invertido"); // Remove a classe invertida
+        document.getElementById('btnSubmeter').classList.add("botao_entrar");     // Adiciona a classe normal
+
+        // O btnProx vai aparecer e deve ter a classe invertida
+        document.getElementById('btnProx').classList.remove("botao_entrar");     // Remove a classe normal
+        document.getElementById('btnProx').classList.add("botao_invertido");    // Adiciona a classe invertida
     }
 }
 
@@ -101,6 +118,16 @@ function avancar() {
 
     desmarcarRadioButtons();
     limparCoresBackgroundOpcoes();
+
+    // CORREÇÃO NAS LINHAS DE CLASSES:
+    // O btnSubmeter vai aparecer e deve ter a classe normal
+    document.getElementById('btnSubmeter').classList.remove("botao_invertido"); // Garante que a invertida seja removida
+    document.getElementById('btnSubmeter').classList.add("botao_entrar");     // Adiciona a classe normal
+
+    // O btnProx vai sumir, mas deve ter a classe invertida para a próxima vez que aparecer
+    document.getElementById('btnProx').classList.remove("botao_entrar");     // Garante que a normal seja removida
+    document.getElementById('btnProx').classList.add("botao_invertido");    // Adiciona a classe invertida
+
 
     if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
         numeroDaQuestaoAtual++;

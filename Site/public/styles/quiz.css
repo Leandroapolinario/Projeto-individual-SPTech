@@ -378,3 +378,30 @@ body {
         font-size: 0.8em;
     }
 }
+
+/* ... seu código CSS existente ... */
+
+.botao_invertido {
+    background-color: #000; /* Preto */
+    color: #ff69b4; /* Rosa */
+    border: 2px solid #ff69b4; /* Opcional: Adiciona uma borda rosa para destaque */
+    /* Mantenha as mesmas propriedades de padding, font-size, border-radius, etc. do .botao_entrar */
+    padding: 8px 16px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.botao_invertido:hover {
+    background-color: #333; /* Um pouco mais claro no hover */
+    color: #ff9edb; /* Um rosa um pouco mais claro no hover */
+    border-color: #ff9edb;
+}
+
+.botao_invertido:disabled {
+    background-color: #555;
+    color: #ccc;
+    cursor: not-allowed;
+    border-color: #777;
+}
