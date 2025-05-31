@@ -18,6 +18,9 @@ function onloadEsconder() {
     document.getElementById('pontuacao').style.display = "none";
     document.getElementById('jogo').style.display = "none";
     document.getElementById('pontuacaoFinalJogo').style.display = "none";
+    document.getElementById('btnProx').style.display = "none";
+    document.getElementById('btnTentarNovamente').style.display = "none";
+    document.getElementById('btnDashboard').style.display = "none"; // Esconde o botão Dashboard
 }
 
 function iniciarQuiz() {
@@ -29,12 +32,16 @@ function iniciarQuiz() {
     document.getElementById('spanCertas').innerHTML = certas;
     document.getElementById('spanErradas').innerHTML = erradas;
 
-
     preencherHTMLcomQuestaoAtual(0);
 
     document.getElementById('btnSubmeter').disabled = false;
     document.getElementById('btnProx').disabled = true;
     document.getElementById('btnTentarNovamente').disabled = true;
+
+    document.getElementById('btnSubmeter').style.display = "inline-block";
+    document.getElementById('btnProx').style.display = "none";
+    document.getElementById('btnTentarNovamente').style.display = "none";
+    document.getElementById('btnDashboard').style.display = "none"; // Garante que Dashboard esteja escondido
 }
 
 function preencherHTMLcomQuestaoAtual(index) {
@@ -47,7 +54,14 @@ function preencherHTMLcomQuestaoAtual(index) {
     document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB;
     document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.alternativaC;
     document.getElementById("labelOpcaoQuatro").innerHTML = questaoAtual.alternativaD;
+
+    document.getElementById('btnSubmeter').style.display = "inline-block";
+    document.getElementById('btnProx').style.display = "none";
+    document.getElementById('btnSubmeter').disabled = false;
+    document.getElementById('btnProx').disabled = true;
+    document.getElementById('btnDashboard').style.display = "none"; // Garante que Dashboard esteja escondido
 }
+
 
 function submeter() {
     const options = document.getElementsByName("option");
@@ -67,6 +81,10 @@ function submeter() {
         document.getElementById('btnProx').disabled = false;
         habilitarAlternativas(false);
         checarResposta(selectedOption.value);
+
+        // LINHAS ADICIONADAS AQUI PARA A TRANSFORMAÇÃO DO BOTÃO:
+        document.getElementById('btnSubmeter').style.display = "none"; // Esconde o botão "Submeter resposta"
+        document.getElementById('btnProx').style.display = "inline-block"; // Mostra o botão "Avançar para próxima questão"
     }
 }
 
@@ -158,26 +176,29 @@ function finalizarJogo() {
     // Adiciona a pontuação final ao texto da mensagem
     textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos) * 100) + "% das questões.";
 
-    // Esconde os elementos do jogo e pontuação durante o jogo
+   // Esconde os elementos do jogo e pontuação durante o jogo
     document.getElementById('infoQuestao').style.display = "none";
     document.getElementById('perguntaDaQuestaoAtual').style.display = "none";
     document.getElementById('infoAlternativas').style.display = "none";
     document.getElementById('opcoes').style.display = "none";
     document.getElementById('btnSubmeter').style.display = "none";
     document.getElementById('btnProx').style.display = "none";
+    document.getElementById('pontuacaoDuranteJogo').style.display = "none";
 
     // Mostra a área de pontuação final
-    document.getElementById('pontuacaoFinalJogo').style.display = "flex"; // Mostra a div de pontuação final
-    document.getElementById('pontuacaoDuranteJogo').style.display = "none"; // Esconde a div de pontuação durante o jogo
+    document.getElementById('pontuacaoFinalJogo').style.display = "flex";
 
     // Preenche a pontuação final e a mensagem
     document.getElementById('spanPontuacaoFinal').innerHTML = `${pontuacaoFinal}/${quantidadeDeQuestoes}`;
     document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal;
-    document.getElementById('msgFinal').className = `final-message ${classComCoresParaMensagemFinal}`; // Adiciona a classe de cor
+    document.getElementById('msgFinal').className = `final-message ${classComCoresParaMensagemFinal}`;
 
-    // Habilita e mostra o botão "Tentar novamente"
+    // Habilita e mostra os botões "Tentar novamente" e "Dashboard"
     document.getElementById('btnTentarNovamente').disabled = false;
-    document.getElementById('btnTentarNovamente').style.display = "inline-block"; // Garante que ele apareça
+    document.getElementById('btnTentarNovamente').style.display = "inline-block";
+    // LINHA ADICIONADA AQUI:
+    document.getElementById('btnDashboard').style.display = "inline-block"; // Mostra o botão Dashboard
+
 
 
 
