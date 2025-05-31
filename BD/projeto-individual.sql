@@ -12,6 +12,10 @@ CREATE TABLE Quiz (
     nome varchar (45)
 );
 
+select p.pontuacao FROM pontuacao AS p
+JOIN Quiz AS q ON q.idQuiz = p.fkQuiz
+JOIN Usuario AS u ON u.idUsuario = p.fkUsuario;
+
 CREATE TABLE pontuacao (
     idPontuacao INT AUTO_INCREMENT UNIQUE,
     fkUsuario INT,
@@ -22,6 +26,7 @@ CREATE TABLE pontuacao (
     FOREIGN KEY (fkQuiz) REFERENCES Quiz(idQuiz)
 );
 
+select count(pontuacao) from pontuacao group by;
 CREATE TABLE pergunta (
     idPergunta INT PRIMARY KEY auto_increment,
     FkQuiz INT,

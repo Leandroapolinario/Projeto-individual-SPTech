@@ -37,30 +37,30 @@
 
       <section class="right-panel">
         <h3>🦄Ranking🦄</h3>
-        <ul>  
+        <ul>
           <li>Rafael</li>
           <li>Léo</li>
           <li>Marina</li>
         </ul>
-        
+
         <button onclick="window.location='./tela-quiz.html'">Voltar ao quiz</button>
     </div>
 
-     <div class="container">  
-        <div class="bloco1">
-        <h3>🍦Acertos total🍦</h3>    
-        </div>
+    <div class="container">
+      <div class="bloco1">
+        <h3>🍦Acertos total🍦</h3>
+      </div>
 
-        <div class="bloco2">
-        <h3>🍦Quantidade de tentativa🍦</h3>    
-        </div>
+      <div class="bloco2">
+        <h3>🍦Quantidade de tentativa🍦</h3>
+      </div>
 
-        <div class="bloco2">
-        <h3>🍦Quantidade média de acertos🍦</h3>    
-        </div>
-  </div>
+      <div class="bloco2">
+        <h3>🍦Quantidade média de acertos🍦</h3>
+      </div>
+    </div>
 
-  <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/dashboard.js"></script>
 </body>
 
 </html>
@@ -70,37 +70,52 @@
   const idUsuario = sessionStorage.ID_USUARIO
 
   const ctx = document.getElementById('myChart');
+  window.onload = dashboard()
 
+  var listaNomes = [];
+  var listaPontuacao = [];
 
   function dashboard() {
     fetch(`/dash/buscarPontuacao/${idUsuario}`)
       .then(res => res.json())
       .then(pontuacao => {
         console.log(pontuacao[0])
+        console.log(pontuacao.length);
+
+        for (let i = 0; i < pontuacao.length; i++) {
+          listaNomes.push(pontuacao[i].nome);
+          listaPontuacao.push(pontuacao[i].pontos)
+          console.log(listaNomes);
+          console.log(listaNomes);
+
+
+        }
+
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: listaPontuacao,
+            datasets: [{
+              label: 'Pontuação',
+              data: listaNomes,
+              borderWidth: 2,
+              borderColor: `pink`,
+              backgroundColor: `purple`,
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+
       })
+
+
 
   }
 
-
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
-      datasets: [{
-        label: 'Acertos por Quizes',
-        data: [20, 30 + 10, 28 + 10, 25 + 10, 22 + 10, 23 + 10],
-        borderWidth: 2,
-        borderColor: `pink`,
-        backgroundColor: `purple`,
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
 </script>
