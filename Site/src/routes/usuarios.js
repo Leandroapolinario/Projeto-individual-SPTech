@@ -15,4 +15,4 @@ router.post("/logar", function (req, res) {
 
 
 
-module.exports = router;Add comment
+module.exports = router;
