@@ -2,128 +2,71 @@
 <html lang="pt-br">
 
 <head>
-  <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
 
-  <link rel="stylesheet" href="./styles/dashboard.css">
+    <link rel="stylesheet" href="./styles/dashboard.css">
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
 
-<body onload="exibirAquariosDoUsuario()">
-  <div class="dashboard">
+<body>
+    <div class="dashboard">
 
-    <header class="top-bar">
-      <button class="botao_voltar">
-        <a href="index.html">Voltar</a>
-      </button>
-      <div class="logo">Dashjuba</div>
-      <div class="profile">
-        <span id="b_usuario">NOME USUÁRIO</span> <i class="fa-solid fa-caret-down"></i>
-      </div>
-    </header>
+        <header class="top-bar">
+            <button class="botao_voltar">
+                <a href="index.html">Voltar</a>
+            </button>
+            <div class="logo">Dashjuba</div>
+            <div class="profile">
+                <span id="b_usuario">NOME USUÁRIO</span> <i class="fa-solid fa-caret-down"></i>
+            </div>
+        </header>
 
+        <div class="container">
+            <section class="map-panel" id="graficos">
+                <div class="map-placeholder" id="placeholder-inicial">
+                    <canvas id="myChart" style="position:relative; height: 40vh; width: 40vw"></canvas>
+                </div>
+            </section>
 
-    </section>
-    <div class="container">
-      <section class="map-panel" id="graficos">
-        <div class="map-placeholder" id="placeholder-inicial">
-          <canvas id="myChart" style="position:relative; height: 40vh; width: 40vw"></canvas>
+            <section class="right-panel">
+                <h3>🦄Ranking🦄</h3>
+                <ul id="rankingList">
+                    </ul>
+
+                <button onclick="window.location='./tela-quiz.html'">Voltar ao quiz</button>
+            </section>
         </div>
-      </section>
 
-      <section class="right-panel">
-        <h3>🦄Ranking🦄</h3>
-        <ul id="rankingList">
-        </ul>
+        <div class="container"> 
+            <div class="bloco1">
+                <h3>🍦Acertos total🍦</h3>
+                <span id="acertosTotal">0</span>
+            </div>
 
-        <button onclick="window.location='./tela-quiz.html'">Voltar ao quiz</button>
+            <div class="bloco2">
+                <h3>🍦Quantidade de tentativa🍦</h3>
+                <span id="quantidadeTentativa">0</span>
+            </div>
+
+            <div class="bloco3"> <h3>🍦Quantidade média de acertos🍦</h3>
+                <span id="mediaAcertos">0</span>
+            </div>
+        </div>
+
     </div>
 
-
-<div class="container">
-    <div class="bloco1">
-      <h3>🍦Acertos total🍦</h3>
-      <span id="acertosTotal">0</span>
-    </div>
-
-    <div class="bloco2">
-      <h3>🍦Quantidade de tentativa🍦</h3>
-      <span id="quantidadeTentativa">0</span>
-    </div>
-
-    <div class="bloco2">
-      <h3>🍦Quantidade média de acertos🍦</h3>
-      <span id="mediaAcertos">0</span>
-    </div>
-</div>
-
-
-  <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/dashboard.js"></script> 
 </body>
 
 </html>
 
 <script>
 
-  const idUsuario = sessionStorage.ID_USUARIO
-
-  const ctx = document.getElementById('myChart');
-  window.onload = dashboard()
-
-  var listaNomes = [];
-  var listaPontuacao = [];
-
-  function dashboard() {
-    fetch(`/dash/buscarPontuacao/${idUsuario}`)
-      .then(res => res.json())
-      .then(pontuacao => {
-        console.log(pontuacao[0])
-        console.log(pontuacao.length);
-
-        for (let i = 0; i < pontuacao.length; i++) {
-          listaNomes.push(pontuacao[i].nome);
-          listaPontuacao.push(pontuacao[i].pontos)
-     
-        }
-
-        // --- NOVO CÓDIGO PARA O RANKING ---
-        const rankingListElement = document.getElementById("rankingList");
-        rankingListElement.innerHTML = ''; // Limpa a lista existente
-
-        // Pega os 3 primeiros (ou menos, se houver menos de 3)
-        for (let i = 0; i < Math.min(3, listaNomes.length); i++) {
-          const listItem = document.createElement('li');
-          listItem.textContent = `${listaNomes[i]} - ${listaPontuacao[i]} pontos`;
-          rankingListElement.appendChild(listItem);
-        }
-    
-
-        new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: listaNomes,
-            datasets: [{
-              label: 'Pontuação',
-              data: listaPontuacao,
-              borderWidth: 2,
-              borderColor: `pink`,
-              backgroundColor: `purple`,
-            }]
-          },
-          options: {
-            scales: {
-              y: {
-                beginAtZero: true
-              }
-            }
-          }
-        });
-
-      })
-  }
+  
 
 </script>

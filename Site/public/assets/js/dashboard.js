@@ -300,3 +300,186 @@ function atualizarGrafico(idAquario, dados, myChart) {
         proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
     });
 }
+
+// Acessando o ID e nome do usuário da sessionStorage
+const idUsuario = sessionStorage.ID_USUARIO;
+const nomeUsuario = sessionStorage.NOME_USUARIO; // Supondo que você armazena o nome também
+
+// Atualiza o nome do usuário na top-bar
+document.getElementById('b_usuario').innerHTML = nomeUsuario || 'Usuário Desconhecido';
+
+// Função para o gráfico de pontuação/ranking
+function dashboard() {
+    // console.log("Executando a função dashboard para o gráfico...");
+    const ctx = document.getElementById('myChart'); // Certifique-se de que o canvas existe
+
+    // Fetch para buscar os dados de pontuação/ranking
+    fetch(`/dash/buscarPontuacao/${idUsuario}`)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then(pontuacao => {
+            // console.log("Dados de pontuação recebidos:", pontuacao);
+
+            var listaNomes = [];
+            var listaPontuacao = [];
+
+            // Preenche as listas com os dados do fetch
+            for (let i = 0; i < pontuacao.length; i++) {
+                listaNomes.push(pontuacao[i].nome);
+                listaPontuacao.push(pontuacao[i].pontos);
+            }
+
+            // --- NOVO CÓDIGO PARA O RANKING (Painel Lateral Direito) ---
+            const rankingListElement = document.getElementById("rankingList");
+            if (rankingListElement) { // Verifica se o elemento existe
+                rankingListElement.innerHTML = ''; // Limpa a lista existente
+
+                // Pega os 3 primeiros (ou menos, se houver menos de 3)
+                for (let i = 0; i < Math.min(3, listaNomes.length); i++) {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${listaNomes[i]} - ${listaPontuacao[i]} pontos`;
+                    rankingListElement.appendChild(listItem);
+                }
+            } else {
+                console.warn("Elemento 'rankingList' não encontrado no HTML.");
+            }
+
+
+            // Criação do gráfico
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: listaNomes,
+                    datasets: [{
+                        label: 'Pontuação',
+                        data: listaPontuacao,
+                        borderWidth: 2,
+                        borderColor: `pink`,
+                        backgroundColor: `purple`,
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    responsive: true, // Torna o gráfico responsivo
+                    maintainAspectRatio: false // Permite que a altura e largura sejam controladas pelo CSS
+                }
+            });
+
+            // Oculta o placeholder após o gráfico ser gerado (se houver um)
+            const placeholder = document.getElementById('placeholder-inicial');
+            if (placeholder) {
+                placeholder.style.display = 'block'; // Mostra o canvas que estava dentro do placeholder
+                // Se você quiser esconder o texto 'map-placeholder', pode adicionar uma classe ou fazer:
+                // placeholder.querySelector('canvas').style.display = 'block';
+                // placeholder.innerHTML = ''; // Limpa o conteúdo se o canvas já estiver dentro
+            }
+
+        })
+        .catch(erro => {
+            console.error("Erro ao buscar pontuação para o dashboard:", erro);
+            // Mostrar uma mensagem de erro amigável ao usuário
+            const placeholder = document.getElementById('placeholder-inicial');
+            if (placeholder) {
+                placeholder.innerHTML = '<p style="color:red;">Erro ao carregar o gráfico de pontuação.</p>';
+            }
+        });
+}
+
+// Função para o indicador de Acertos Total
+function indicadorAcertosTotal() {
+    // console.log("Executando a função indicadorAcertosTotal...");
+    fetch(`/dash/acertosTotal/${idUsuario}`)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then(acertos => {
+            // console.log("Acertos totais recebidos:", acertos);
+            var acertosTotalSpan = document.getElementById("acertosTotal");
+            if (acertosTotalSpan) {
+                acertosTotalSpan.innerHTML = acertos.totalAcertos !== undefined ? acertos.totalAcertos : 'N/A';
+            } else {
+                console.warn("Elemento 'acertosTotal' não encontrado no HTML.");
+            }
+        })
+        .catch(erro => {
+            console.error("Erro ao buscar total de acertos:", erro);
+            var acertosTotalSpan = document.getElementById("acertosTotal");
+            if (acertosTotalSpan) {
+                acertosTotalSpan.innerHTML = 'Erro';
+            }
+        });
+}
+
+// Função para o indicador de Quantidade de Tentativa
+function indicadorQuantidadeTentativa() {
+    // console.log("Executando a função indicadorQuantidadeTentativa...");
+    fetch(`/dash/quantidadeTentativa/${idUsuario}`)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then(tentativas => {
+            // console.log("Quantidade de tentativas recebidas:", tentativas);
+            var quantidadeTentativaSpan = document.getElementById("quantidadeTentativa");
+            if (quantidadeTentativaSpan) {
+                quantidadeTentativaSpan.innerHTML = tentativas.totalTentativas !== undefined ? tentativas.totalTentativas : 'N/A';
+            } else {
+                console.warn("Elemento 'quantidadeTentativa' não encontrado no HTML.");
+            }
+        })
+        .catch(erro => {
+            console.error("Erro ao buscar quantidade de tentativas:", erro);
+            var quantidadeTentativaSpan = document.getElementById("quantidadeTentativa");
+            if (quantidadeTentativaSpan) {
+                quantidadeTentativaSpan.innerHTML = 'Erro';
+            }
+        });
+}
+
+// Função para o indicador de Média de Acertos Global
+function indicadorMediaAcertosGlobal() {
+    // console.log("Executando a função indicadorMediaAcertosGlobal...");
+    fetch(`/dash/mediaAcertosGlobal`)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then(media => {
+            // console.log("Média de acertos global recebida:", media);
+            var mediaAcertosSpan = document.getElementById("mediaAcertos");
+            if (mediaAcertosSpan) {
+                // A API já deve retornar formatado, mas adicionamos uma segurança
+                mediaAcertosSpan.innerHTML = media.mediaAcertos !== undefined ? parseFloat(media.mediaAcertos).toFixed(2) : 'N/A';
+            } else {
+                console.warn("Elemento 'mediaAcertos' não encontrado no HTML.");
+            }
+        })
+        .catch(erro => {
+            console.error("Erro ao buscar média de acertos global:", erro);
+            var mediaAcertosSpan = document.getElementById("mediaAcertos");
+            if (mediaAcertosSpan) {
+                mediaAcertosSpan.innerHTML = 'Erro';
+            }
+        });
+}
+
+// Adiciona os event listeners para carregar as funções quando a página estiver pronta
+window.addEventListener('load', dashboard);
+window.addEventListener('load', indicadorAcertosTotal);
+window.addEventListener('load', indicadorQuantidadeTentativa);
+window.addEventListener('load', indicadorMediaAcertosGlobal);
