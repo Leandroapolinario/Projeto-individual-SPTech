@@ -37,30 +37,28 @@
 
       <section class="right-panel">
         <h3>🦄Ranking🦄</h3>
-        <ul>
-          <li>Rafael</li>
-          <li>Léo</li>
-          <li>Marina</li>
+        <ul id="rankingList">
         </ul>
 
         <button onclick="window.location='./tela-quiz.html'">Voltar ao quiz</button>
     </div>
 
-    <div class="container">
-      <div class="bloco1">
-        <h3>🍦Acertos total🍦</h3>
-      </div>
 
-      <div class="bloco2">
-        <h3>🍦Quantidade de tentativa🍦</h3>
-      </div>
-
-      <div class="bloco2">
-        <h3>🍦Quantidade média de acertos🍦</h3>
-      </div>
+  <div class="container">
+    <div class="bloco1">
+      <h3>🍦Acertos total🍦</h3>
     </div>
 
-    <script src="assets/js/dashboard.js"></script>
+    <div class="bloco2">
+      <h3>🍦Quantidade de tentativa🍦</h3>
+    </div>
+
+    <div class="bloco2">
+      <h3>🍦Quantidade média de acertos🍦</h3>
+    </div>
+  </div>
+
+  <script src="assets/js/dashboard.js"></script>
 </body>
 
 </html>
@@ -85,11 +83,22 @@
         for (let i = 0; i < pontuacao.length; i++) {
           listaNomes.push(pontuacao[i].nome);
           listaPontuacao.push(pontuacao[i].pontos)
-          console.log(listaNomes);
-          console.log(listaNomes);
-
-
+          // Os console.log duplicados aqui podem ser removidos, se desejar.
+          // console.log(listaNomes);
+          // console.log(listaNomes);
         }
+
+        // --- NOVO CÓDIGO PARA O RANKING ---
+        const rankingListElement = document.getElementById("rankingList");
+        rankingListElement.innerHTML = ''; // Limpa a lista existente
+
+        // Pega os 3 primeiros (ou menos, se houver menos de 3)
+        for (let i = 0; i < Math.min(3, listaNomes.length); i++) {
+          const listItem = document.createElement('li');
+          listItem.textContent = `${listaNomes[i]} - ${listaPontuacao[i]} pontos`;
+          rankingListElement.appendChild(listItem);
+        }
+        // --- FIM DO NOVO CÓDIGO ---
 
         new Chart(ctx, {
           type: 'bar',
@@ -113,9 +122,6 @@
         });
 
       })
-
-
-
   }
 
 </script>
