@@ -47,8 +47,7 @@ function voltar() {
 
                 resposta.text().then(texto => {
                     console.error(texto);
-                    div_condicao_cadastrar.innerHTML = `<div class="errado">${texto}</div>`; // ALTERAÇÃO: Exibe a mensagem do servidor
-                    return true;
+                    div_condicao_cadastrar.innerHTML = `<div class="errado">${texto}</div>`; 
                 });
             }
         }).catch(function (erro) {

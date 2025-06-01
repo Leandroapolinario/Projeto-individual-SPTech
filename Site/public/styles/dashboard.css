@@ -374,30 +374,33 @@ body {
 
 .bloco1 {
 
-    width: 200px;
+    width: 250px;
     height: 120px;
     margin-right: 90px;
     background-color: #12121c;
+    border-radius: 8px;
 
 
 }
 
 .bloco2 {
 
-    width: 200px;
+    width: 250px;
     height: 120px;
     margin-right: 20px;
     background-color: #12121c;
+    border-radius: 8px;
 
    
 }
 
 .bloco3 {
 
-    width: 200px;
+    width: 250px;
     height: 120px;
     margin-right: 10px;
     background-color: #12121c;
+    border-radius: 8px;
 
    
 }

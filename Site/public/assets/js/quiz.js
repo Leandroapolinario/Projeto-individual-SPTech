@@ -115,7 +115,7 @@ function avancar() {
     desmarcarRadioButtons();
     limparCoresBackgroundOpcoes();
 
-    // CORREÇÃO NAS LINHAS DE CLASSES:
+
     // O btnSubmeter vai aparecer e deve ter a classe normal
     document.getElementById('btnSubmeter').classList.remove("botao_invertido"); // Garante que a invertida seja removida
     document.getElementById('btnSubmeter').classList.add("botao_entrar");      // Adiciona a classe normal

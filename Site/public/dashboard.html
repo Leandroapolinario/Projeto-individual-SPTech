@@ -44,19 +44,23 @@
     </div>
 
 
-  <div class="container">
+<div class="container">
     <div class="bloco1">
       <h3>🍦Acertos total🍦</h3>
+      <span id="acertosTotal">0</span>
     </div>
 
     <div class="bloco2">
       <h3>🍦Quantidade de tentativa🍦</h3>
+      <span id="quantidadeTentativa">0</span>
     </div>
 
     <div class="bloco2">
       <h3>🍦Quantidade média de acertos🍦</h3>
+      <span id="mediaAcertos">0</span>
     </div>
-  </div>
+</div>
+
 
   <script src="assets/js/dashboard.js"></script>
 </body>
@@ -83,9 +87,7 @@
         for (let i = 0; i < pontuacao.length; i++) {
           listaNomes.push(pontuacao[i].nome);
           listaPontuacao.push(pontuacao[i].pontos)
-          // Os console.log duplicados aqui podem ser removidos, se desejar.
-          // console.log(listaNomes);
-          // console.log(listaNomes);
+     
         }
 
         // --- NOVO CÓDIGO PARA O RANKING ---
@@ -98,7 +100,7 @@
           listItem.textContent = `${listaNomes[i]} - ${listaPontuacao[i]} pontos`;
           rankingListElement.appendChild(listItem);
         }
-        // --- FIM DO NOVO CÓDIGO ---
+    
 
         new Chart(ctx, {
           type: 'bar',

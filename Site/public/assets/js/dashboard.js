@@ -1,5 +1,4 @@
- // A linha abaixo foi movida para o HTML diretamente, pois 'b_usuario' é do HTML
-// b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
 
 let proximaAtualizacao; // Variável para controlar o timeout de atualização
 
