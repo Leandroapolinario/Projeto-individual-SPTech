@@ -1,5 +1,3 @@
-/* quiz.css */
-
 /* --- Importações e reset básicos --- */
 @import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
 
@@ -202,11 +200,123 @@ body {
     font-size: 1.2em; /* Fonte ainda destacada */
     font-weight: bold;
     position: absolute; /* Posicionamento absoluto dentro do container */
-    top: 50%; /* Centraliza verticalmente */
+    top: 45%; /* Centraliza verticalmente um pouco mais para cima */
     left: 50%; /* Centraliza horizontalmente */
     transform: translate(-50%, -50%); /* Ajusta para centralizar exatamente */
     z-index: 1; /* Garante que esteja acima de outros elementos se houver sobreposição */
 }
+
+/* NOVO ESTILO PARA O BOTÃO DASHBOARD INICIAL */
+#btnDashboardInicial {
+    width: 60%; /* Um pouco menor que o botão de iniciar */
+    padding: 10px 18px; /* Padding ajustado para ser um pouco menor */
+    font-size: 1.1em; /* Fonte um pouco menor */
+    font-weight: bold;
+    position: absolute; /* Posicionamento absoluto dentro do container */
+    top: 55%; /* Posiciona abaixo do botão Iniciar Quiz */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta para centralizar exatamente */
+    z-index: 1; /* Garante que esteja acima de outros elementos */
+}
+
+/* Ajustes de mídia para telas menores - ainda mais agressivos */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+        height: calc(100vh - 70px); /* Ajuste apertado */
+    }
+    body {
+        padding-top: 50px;
+    }
+    .navbar {
+        height: 50px;
+    }
+    #pontuacao,
+    #jogo {
+        padding: 8px;
+    }
+    .option-label {
+        font-size: 0.8em;
+        padding: 5px;
+    }
+    #botoes button {
+        font-size: 0.8em;
+        padding: 7px 10px;
+    }
+    #perguntaDaQuestaoAtual {
+        font-size: 1em;
+    }
+    /* Ajustes para os botões iniciais em telas menores */
+    #btnIniciarQuiz {
+        width: 80%;
+        font-size: 1.1em;
+        padding: 10px 18px;
+    }
+    #btnDashboardInicial {
+        width: 70%;
+        font-size: 1em;
+        padding: 9px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 8px;
+        height: calc(100vh - 66px); /* Altura mínima para celulares */
+        gap: 5px;
+    }
+    body {
+        padding-top: 50px;
+    }
+    .navbar {
+        height: 50px;
+        padding: 5px 0;
+    }
+    #pontuacao,
+    #jogo {
+        padding: 6px;
+        margin-bottom: 3px;
+    }
+    #infoQuestao,
+    #perguntaDaQuestaoAtual,
+    #infoAlternativas {
+        font-size: 0.75em; /* Fontes ainda menores */
+        margin-bottom: 5px;
+    }
+    #perguntaDaQuestaoAtual {
+        font-size: 0.9em;
+    }
+    .option-label {
+        font-size: 0.75em;
+        padding: 4px;
+        width: calc(100% - 18px); /* Ajuste menor */
+    }
+    #botoes {
+        gap: 6px;
+        flex-direction: column; /* Em telas muito pequenas, forçamos coluna */
+    }
+    #botoes button {
+        font-size: 0.75em;
+        padding: 8px;
+        width: 100%; /* Ocupa toda a largura */
+    }
+    /* Ajustes para os botões iniciais em telas muito pequenas */
+    #btnIniciarQuiz {
+        padding: 10px 15px;
+        font-size: 1em;
+        width: 90%;
+    }
+    #btnDashboardInicial {
+        padding: 8px 12px;
+        font-size: 0.9em;
+        width: 80%;
+    }
+    .final-message {
+        font-size: 0.8em;
+    }
+}
+
+
 
 
 .flex-colunar {

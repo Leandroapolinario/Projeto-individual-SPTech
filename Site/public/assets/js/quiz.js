@@ -1,18 +1,13 @@
-
 const idUsuario = sessionStorage.ID_USUARIO
 
 function voltar() {
-
     window.location.assign("index.html")
 }
-
-
 
 let numeroDaQuestaoAtual = 0;
 let pontuacaoFinal = 0;
 let certas = 0;
 let erradas = 0;
-
 
 function onloadEsconder() {
     document.getElementById('pontuacao').style.display = "none";
@@ -21,13 +16,15 @@ function onloadEsconder() {
     document.getElementById('btnProx').style.display = "none";
     document.getElementById('btnProx').classList.add("botao_invertido"); // Adiciona a classe invertida ao botão Avançar
     document.getElementById('btnTentarNovamente').style.display = "none";
-    document.getElementById('btnDashboard').style.display = "none"; // Esconde o botão Dashboard
+    document.getElementById('btnDashboard').style.display = "none"; // Esconde o botão Dashboard do final do jogo
+    document.getElementById('btnDashboardInicial').style.display = "inline-block"; // Garante que o botão inicial esteja visível ao carregar
 }
 
 function iniciarQuiz() {
     document.getElementById('pontuacao').style.display = "flex";
     document.getElementById('jogo').style.display = "flex";
     document.getElementById('btnIniciarQuiz').style.display = "none";
+    document.getElementById('btnDashboardInicial').style.display = "none"; // Esconde o novo botão Dashboard ao iniciar o quiz
 
     document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes;
     document.getElementById('spanCertas').innerHTML = certas;
@@ -41,15 +38,15 @@ function iniciarQuiz() {
 
     // Assegura que o Submeter comece como "normal" e o Avançar como "invertido"
     document.getElementById('btnSubmeter').classList.remove("botao_invertido"); // Garante a classe correta
-    document.getElementById('btnSubmeter').classList.add("botao_entrar");     // Adiciona a classe correta
+    document.getElementById('btnSubmeter').classList.add("botao_entrar");      // Adiciona a classe correta
 
-    document.getElementById('btnProx').classList.remove("botao_entrar");     // Garante a classe correta
-    document.getElementById('btnProx').classList.add("botao_invertido");    // Adiciona a classe correta
+    document.getElementById('btnProx').classList.remove("botao_entrar");       // Garante a classe correta
+    document.getElementById('btnProx').classList.add("botao_invertido");      // Adiciona a classe correta
 
     document.getElementById('btnSubmeter').style.display = "inline-block";
     document.getElementById('btnProx').style.display = "none";
     document.getElementById('btnTentarNovamente').style.display = "none";
-    document.getElementById('btnDashboard').style.display = "none"; // Garante que Dashboard esteja escondido
+    document.getElementById('btnDashboard').style.display = "none"; // Garante que Dashboard do final esteja escondido
 }
 
 function preencherHTMLcomQuestaoAtual(index) {
@@ -67,9 +64,8 @@ function preencherHTMLcomQuestaoAtual(index) {
     document.getElementById('btnProx').style.display = "none";
     document.getElementById('btnSubmeter').disabled = false;
     document.getElementById('btnProx').disabled = true;
-    document.getElementById('btnDashboard').style.display = "none"; // Garante que Dashboard esteja escondido
+    document.getElementById('btnDashboard').style.display = "none"; // Garante que Dashboard do final esteja escondido
 }
-
 
 function submeter() {
     const options = document.getElementsByName("option");
@@ -82,7 +78,7 @@ function submeter() {
         }
     }
 
-  if (!selectedOption) {
+    if (!selectedOption) {
         alert("Não há alternativas escolhidas. Escolha uma opção.");
     } else {
         document.getElementById('btnSubmeter').disabled = true;
@@ -97,11 +93,11 @@ function submeter() {
         // CORREÇÃO NAS LINHAS DE CLASSES:
         // O btnSubmeter vai sumir, mas deve ter a classe normal para a próxima questão
         document.getElementById('btnSubmeter').classList.remove("botao_invertido"); // Remove a classe invertida
-        document.getElementById('btnSubmeter').classList.add("botao_entrar");     // Adiciona a classe normal
+        document.getElementById('btnSubmeter').classList.add("botao_entrar");      // Adiciona a classe normal
 
         // O btnProx vai aparecer e deve ter a classe invertida
-        document.getElementById('btnProx').classList.remove("botao_entrar");     // Remove a classe normal
-        document.getElementById('btnProx').classList.add("botao_invertido");    // Adiciona a classe invertida
+        document.getElementById('btnProx').classList.remove("botao_entrar");       // Remove a classe normal
+        document.getElementById('btnProx').classList.add("botao_invertido");      // Adiciona a classe invertida
     }
 }
 
@@ -122,12 +118,11 @@ function avancar() {
     // CORREÇÃO NAS LINHAS DE CLASSES:
     // O btnSubmeter vai aparecer e deve ter a classe normal
     document.getElementById('btnSubmeter').classList.remove("botao_invertido"); // Garante que a invertida seja removida
-    document.getElementById('btnSubmeter').classList.add("botao_entrar");     // Adiciona a classe normal
+    document.getElementById('btnSubmeter').classList.add("botao_entrar");      // Adiciona a classe normal
 
     // O btnProx vai sumir, mas deve ter a classe invertida para a próxima vez que aparecer
-    document.getElementById('btnProx').classList.remove("botao_entrar");     // Garante que a normal seja removida
-    document.getElementById('btnProx').classList.add("botao_invertido");    // Adiciona a classe invertida
-
+    document.getElementById('btnProx').classList.remove("botao_entrar");       // Garante que a normal seja removida
+    document.getElementById('btnProx').classList.add("botao_invertido");      // Adiciona a classe invertida
 
     if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
         numeroDaQuestaoAtual++;
@@ -183,7 +178,6 @@ function desmarcarRadioButtons() {
     }
 }
 
-
 function finalizarJogo() {
     let textoParaMensagemFinal = null;
     let classComCoresParaMensagemFinal = null;
@@ -203,7 +197,7 @@ function finalizarJogo() {
     // Adiciona a pontuação final ao texto da mensagem
     textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos) * 100) + "% das questões.";
 
-   // Esconde os elementos do jogo e pontuação durante o jogo
+    // Esconde os elementos do jogo e pontuação durante o jogo
     document.getElementById('infoQuestao').style.display = "none";
     document.getElementById('perguntaDaQuestaoAtual').style.display = "none";
     document.getElementById('infoAlternativas').style.display = "none";
@@ -223,19 +217,15 @@ function finalizarJogo() {
     // Habilita e mostra os botões "Tentar novamente" e "Dashboard"
     document.getElementById('btnTentarNovamente').disabled = false;
     document.getElementById('btnTentarNovamente').style.display = "inline-block";
-    // LINHA ADICIONADA AQUI:
     document.getElementById('btnDashboard').style.display = "inline-block"; // Mostra o botão Dashboard
-
-
-
-
+    document.getElementById('btnDashboardInicial').style.display = "none"; // Garante que o botão inicial esteja escondido
+    
     fetch("/quiz/acertos", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-
             pontuacaoServer: pontuacaoFinal,
             idUsuarioServer: idUsuario,
         })
@@ -245,12 +235,9 @@ function finalizarJogo() {
 
             if (resposta.ok) {
                 console.log(`Pontuação enviada para o banco de dados`)
-
             } else {
-
                 throw "Houve um erro ao enviar sua pontuação";
             }
-
         })
         .catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
@@ -310,5 +297,4 @@ window.onload = () => {
         })
         .catch(err => console.error("Erro ao carregar perguntas:", err));
 };
-
 
