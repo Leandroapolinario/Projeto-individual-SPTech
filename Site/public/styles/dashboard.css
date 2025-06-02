@@ -372,37 +372,79 @@ body {
     color: #ccc;
 }
 
-.bloco1 {
 
-    width: 250px;
-    height: 120px;
-    margin-right: 90px;
-    background-color: #12121c;
-    border-radius: 8px;
-
-
+.container:nth-of-type(2) {
+    display: flex; /* Torna este container um "flexbox", permitindo organizar os itens internos  */
+    justify-content: space-evenly; /* Distribui os blocos igualmente no espaço disponível, colocando espaço entre eles e nas pontas */
+    align-items: flex-start; /* Alinha os blocos pelo topo.*/
+    flex-wrap: wrap; /* Permite que os blocos "quebrem" para a linha de baixo se a tela ficar muito pequena */
+    margin-top: 20px; /* Adiciona um espaço de 20px acima deste grupo de blocos */
+    padding: 0 20px; /* Adiciona um pequeno espaçamento nas laterais para os blocos não colarem nas bordas da tela */
 }
 
-.bloco2 {
-
-    width: 250px;
-    height: 120px;
-    margin-right: 20px;
-    background-color: #12121c;
-    border-radius: 8px;
-
-   
-}
-
+/* Estilos gerais para os três blocos (bloco1, bloco2, bloco3) */
+.bloco1,
+.bloco2,
 .bloco3 {
+    width: 28%; /* Define que cada bloco ocupará 28% da largura do seu container pai. */
+    min-width: 250px;
+    height: 140px; /* Define uma altura fixa de 140px para todos os blocos, garantindo uniformidade. */
+    background-color: #12121c; 
+    border-radius: 12px; 
+    padding: 15px; /*Cria um espaço interno de 15px entre a borda do bloco e seu conteúdo (título e número) */
+    margin: 10px; /* Adiciona um espaço de 10px ao redor de cada bloco, criando uma distância uniforme entre eles */
+    text-align: center; /* Centraliza todo o texto dentro do bloco horizontalmente */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Adiciona uma sombra para dar um efeito de profundidade, fazendo o bloco "saltar" da tela */
+    display: flex; /* Transforma o bloco em um flexbox para organizar seu conteúdo interno (h3 e span) */
+    flex-direction: column; /* Organiza o conteúdo interno em uma coluna (o h3 em cima, o span embaixo) */
+    justify-content: center; /* Centraliza o conteúdo interno (h3 e span) verticalmente dentro do bloco */
+    align-items: center; /* Centraliza o conteúdo interno (h3 e span) horizontalmente dentro do bloco */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /*  Prepara uma transição suave para efeitos ao passar o mouse */
+}
 
-    width: 250px;
-    height: 120px;
-    margin-right: 10px;
-    background-color: #12121c;
-    border-radius: 8px;
+/* Efeito de hover (quando o mouse passa por cima) para os blocos */
+.bloco1:hover,
+.bloco2:hover,
+.bloco3:hover {
+    transform: translateY(-5px); /*  Move o bloco 5px para cima quando o mouse passa por cima */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /*  Aumenta a intensidade da sombra, dando um efeito de "elevação" maior */
+}
 
-   
+/* Estilos para o título (h3) dentro dos blocos */
+.bloco1 h3,
+.bloco2 h3,
+.bloco3 h3 {
+    margin-top: 0; /* Remove a margem superior padrão do h3 */
+    margin-bottom: 10px; /* 24. Adiciona um espaço de 10px abaixo do título */
+    color: #FFC0CB; /* Define a cor do título para um rosa claro */
+    font-size: 1.3em; /*Define o tamanho da fonte do título (1.3 vezes o tamanho da fonte padrão) */
+    font-weight: 600; /* Deixa o texto do título em negrito */
+    text-align: center; /* Garante que o texto do título esteja centralizado, mesmo se ele quebrar em várias linhas */
+}
+
+/* Estilos para o número (span) dentro dos blocos */
+.bloco1 span,
+.bloco2 span,
+.bloco3 span {
+    font-size: 3em; /*  Deixa o número bem grande (3 vezes o tamanho da fonte padrão) */
+    font-weight: bold; /*  Deixa o número em negrito */
+    color: #C90A73; /* Define a cor do número para o rosa forte do seu tema, dando destaque */
+    line-height: 1; /* Ajusta a altura da linha do número para que ele não ocupe muito espaço vertical extra */
+    display: block; /* Garante que o span se comporte como um bloco, permitindo que o text-align funcione melhor */
+}
+
+/* Media Queries para responsividade - Ajustes nos blocos para telas menores */
+@media (max-width: 768px) {
+    .container:nth-of-type(2) {
+        flex-direction: column;
+        align-items: center; /*Centraliza os blocos quando estão empilhados */
+    }
+    .bloco1,
+    .bloco2,
+    .bloco3 {
+        width: 90%; /* Em telas menores, os blocos ocuparão 90% da largura do container, ficando maiores */
+        margin-bottom: 15px; /* Adiciona um espaço de 15px entre os blocos quando estão empilhados */
+    }
 }
 
 
